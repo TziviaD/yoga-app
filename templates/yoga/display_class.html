@@ -1,0 +1,31 @@
+{% extends "yoga/base.html" %}
+
+{% block content %}
+
+<h1>All about the class</h1>
+<div>
+
+<h1>{{single_class.title}}</h1>
+<p>{{single_class.oneliner}}</p>
+<p>{{single_class.about}}</p>
+<p>{{single_class.teacher}}</p>
+<p>{{single_class.cost}}</p>
+
+</div>
+
+
+<div class="jumbotron">
+    
+    <h1 class="display-4">Hello, world!</h1>
+    
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    {% for lesson in classinfo.lesson_set.all %}
+    <p>time {{lesson.datetime}}</p>
+    <p>duration {{lesson.duration}}</p>
+
+    {% endfor %}
+  </div>
+
+
+{% endblock %}

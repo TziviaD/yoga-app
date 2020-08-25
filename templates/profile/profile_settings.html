@@ -1,0 +1,38 @@
+{% extends 'yoga/base.html' %}
+
+
+
+{% block content %}
+    <h1>  </h1>
+
+<div class="content-section">
+    <div class='media'>
+
+        <img class="rounded-circle" account-img" src="{{ user.profile.image.url }}" width="150" height="150">
+        <div class="media-body">
+            <h2 class="account-heading"> {{user.username}}</h2>
+            <p class="text-secondarty">{{user.email}}</p>
+        </div>
+    </div>
+</div>
+
+<style>
+
+  .content-section {
+    background: #ffffff;
+    padding: 10px 500px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  .account-img {
+    height: 50px;
+    width: 50px;
+    margin-right: 20px;
+    margin-bottom: 16px;
+  }
+  
+</style>
+
+{% endblock %}

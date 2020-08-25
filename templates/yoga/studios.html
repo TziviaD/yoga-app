@@ -1,0 +1,23 @@
+{% extends "yoga/base.html" %}
+
+{% block content %}
+
+<h1>All of the studios we are connected with </h1>
+
+
+<div class="row row-cols-1 row-cols-md-2">
+    {% for studio in studios %}
+
+    <div class="col mb-4">
+      <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <a href="{% url 'single_studio' studio.name|slugify %}" class="card-title">{{studio.name}}</a>
+          <p class="card-text">{{studio.headings}}</p>
+        </div>
+      </div>
+    </div>
+   {% endfor%}
+    </div>
+
+{% endblock %}

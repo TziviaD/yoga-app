@@ -1,0 +1,25 @@
+{% extends "yoga/base.html" %}
+
+{% block content %}
+
+{% if user.profile.is_teacher %}
+<form method= "POST" enctype="multipart/form-data">
+  {% csrf_token %}    
+  
+  {% for field in classinfoform %}
+  <div class="form-group">
+    {{field.label_tag}}
+    {{field}}
+  </div>
+  {% endfor %}
+  
+  <button type="submit" class="btn btn-primary">Submit Info</button>
+</form>   
+{% else %}
+<div class="alert alert-dark" role="alert">
+  You are not authorized to view this page
+  <a class="btn btn-primary" href="{% url 'display'  %}">Check out upcoming classes</a>
+</div>
+{% endif %}
+
+{% endblock content %}

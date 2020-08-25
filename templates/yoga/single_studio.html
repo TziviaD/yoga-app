@@ -1,0 +1,46 @@
+{% extends "yoga/base.html" %}
+{% load teacher_check %}
+{% block content %}
+
+
+<div class="card">
+    <div class="card-body">
+      <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
+      <footer class="blockquote-footer">{{singel_studio.headings}}</footer>
+
+      <div>
+      <p>About: {{single_studio.about}}- <small>
+          {% if request.user.profile|teacher_in_studio:single_studio.id %}
+          <a href="{% url 'update_single_studio' single_studio.slug %}">
+          </small>(Edit)
+        </a> 
+        {% endif %}
+    </p>
+ 
+
+    </div>
+<p>{{single_studio.address}}</p>
+    </div>
+  </div>
+
+<h1>Classes with the studio</h1>
+
+      
+<div class="row">
+
+    <div class="col-sm-6">
+      {% for class in single_studio.classinfo_set.all %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{class.title}}</h5>
+          <p class="card-text">{{class.oneliners}}</p>
+          <a href="{% url 'display_class' class.title|slugify %}" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+<div>
+
+
+{% endblock %}

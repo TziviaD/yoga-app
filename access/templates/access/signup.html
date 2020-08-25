@@ -1,0 +1,104 @@
+
+{% extends "yoga/base.html" %}
+
+{% block content %}
+
+<h1>Signup</h1>
+<form method="POST">
+    <table>        
+        <th>
+
+            <label for='firstname'> Firstname 
+                <input type="text" name='first_name' class="form-control" placeholder="Firstname"</label>
+            </th>
+            <tr>
+                <th>
+                    <label for="id_last_name">Last name:</label>
+                </th>
+                <td>
+                    <input type="text" name="last_name" class="form-control" maxlength="150" id="id_last_name">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_email">Email address:</label>
+                </th>
+                <td>
+                    <input type="email" name="email" class="form-control" maxlength="254" id="id_email">
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_username">Username:</label>
+                </th>
+                <td><input type="text" name="username" class="form-control" maxlength="150" autofocus required id="id_username"><br>
+                    <span class="helptext">Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+                </td>
+            </tr>
+            
+            <tr>
+                <th>
+                    <label for="id_password1">Password:</label></th>
+                    <td>
+                        <input type="password" name="password1" class="form-control" autocomplete="new-password" required id="id_password1"><br><span class="helptext"><ul><li>Your password can’t be too similar to your other personal information.</li>
+                            <li>Your password must contain at least 8 characters.</li>
+                            <li>Your password can’t be a commonly used password.</li>
+                            <li>Your password can’t be entirely numeric.</li></ul></span>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <th>
+                            <label for="id_password2">Password confirmation:</label>
+                        </th>
+                        <td>
+                            <input type="password" name="password2" class="form-control" autocomplete="new-password" required id="id_password2"><br>
+                            <span class="helptext">Enter the same password as before, for verification.</span>
+                        </td>
+                    </tr>
+                    
+                    
+                    
+                    
+                    
+                    {%  comment %}
+                    
+                    
+                    <tr>
+                        <th>
+                            <div class="dropdown">
+                                What best matches you?
+                                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Who are you?
+                                </a>
+                                
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <a class="dropdown-item"  href="#">Student</a>
+                                    <a class="dropdown-item" href="#">Teacher</a>
+                                    <a class="dropdown-item" name='is_teacher' href="{% url 'create_studio' %}">Creating a Studio</a>
+                                </div>
+                            </div>
+                        </th>
+                    </tr>
+                    
+                    <th><label for="is_teacher">Are you an Instructor or Student </label></th>
+                    <td><input value="Student" name="is_teacher"  type='radio'>  {# cause name is the same for both they are linked#}
+                        {# singel line comment #}<label>Student</label>
+                        
+                        <input value="Teacher" name="is_teacher"  type='radio'>
+                        <label>Teacher</label></td>
+                        {% endcomment %}
+                        
+                        
+                        
+                        
+                        
+                        
+                    </table>
+                    {% csrf_token %}
+                    <button type="submit">Signup</button>
+                </form> 
+                
+                
+                
+                {% endblock content %} 
