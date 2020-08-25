@@ -7,9 +7,10 @@ from django.core.files.storage import FileSystemStorage
 from django.utils.text import slugify
 from django.utils.html import strip_tags
 
-from .forms import ClassInfoForm, StudioForm, AddressForm, LessonForm
-from .models import Studio, ClassInfo, Lesson, Address
+from django.db import transaction
 
+from .forms import ClassInfoForm, StudioForm, AddressFormSet, AddressForm, LessonForm
+from .models import Studio, ClassInfo, Lesson, Address
 
 from .filters import StudioFilter, ClassInfoFilter, LessonFilter
 
@@ -167,6 +168,12 @@ def display_class(request, name):
     single_class = ClassInfo.objects.get(slug =name)
     return render(request, 'yoga/display_class.html', {'single_class': single_class})
 
+class UpdateClassView(UpdateView):
+    model = ClassInfo
+    form = ClassInfoForm
+    fields = ['title','oneliner','about','teacher','cost','studio']
+    template_name = 'studio/edit_class.html'
+    slug_field = 'slug'
 
 def studios(request): # all studios with clickable to go into specfic one
     studios = Studio.objects.all()
@@ -181,21 +188,22 @@ def single_studio(request, name): #a specfic studio
     return render(request, 'yoga/single_studio.html', {'single_studio':single_studio} ) #how do pick a specfic one
 
 
-class UpdateSingleStudioView(UpdateView):
-    model = Studio
-    form = StudioForm()
-    fields = ['name','headings','about','address']
-    template_name = 'studio/edit_single_studio.html'
-    slug_field = 'slug'
 
+def update_studio(request,slug):
+    studio = Studio.objects.get(slug = slug)
+    if request.method == 'POST':
+        studio_form = StudioForm(request.POST, instance=studio)
+        address_form = AddressForm(request.POST, instance=studio.address_set.first())
+        if studio_form.is_valid() and address_form.is_valid():
+            studio = studio_form.save()
+            address = address_form.save()
+            return redirect('home')
+    studio_form = StudioForm(instance=studio)
+    address_form = AddressForm(instance=studio.address_set.first())
+    return render(request, 'studio/edit_single_studio.html', {'studio_form':studio_form, 'address_form':address_form})
 
-
-class UpdateClassView(UpdateView):
-    model = ClassInfo
-    form = ClassInfoForm
-    fields = ['title','oneliner','about','teacher','cost','studio']
-    template_name = 'studio/edit_class.html'
-    slug_field = 'slug'
+    
+            
    
 
 

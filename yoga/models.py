@@ -33,6 +33,11 @@ class ClassInfo(models.Model):
     def __str__(self):
         return self.title
 
+
+    def get_absolute_url(self):
+        return reverse('display_class', kwargs={'slug': self.slug})
+
+
 class Lesson(models.Model):
     datetime = models.DateTimeField()
     duration = models.SmallIntegerField()
@@ -52,7 +57,7 @@ class Address(models.Model):
     address = models.CharField(max_length=300, null=True)
     address2 = models.CharField(max_length=300, null=True, blank=True)
     city = models.CharField(max_length=300, null=True)
-
+    studio = models.ForeignKey('Studio', on_delete=models.PROTECT)
     def __str__(self):
         return self.address
 
@@ -61,7 +66,6 @@ class Studio(models.Model):
      #have many teachers for one studio
     headings = models.CharField(max_length=300)
     about = models.TextField()
-    address = models.ForeignKey(Address, on_delete=models.PROTECT)
     slug = models.SlugField(unique=True)
     
     def __str__(self):
@@ -71,7 +75,7 @@ class Studio(models.Model):
     #     return reversed('update_single_studio', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
-        self.slug = self.slug or slugify(self.name)
+        self.slug = slugify(self.name)
         super().save(*args, **kwargs)   
 
 

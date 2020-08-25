@@ -5,21 +5,23 @@
 
 <div class="card">
     <div class="card-body">
+      {% if request.user.profile|teacher_in_studio:single_studio.id %}
+          <small><a href="{% url 'update_studio' single_studio.slug %}">
+          </small>(Edit)
+        </a>
+
       <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
       <footer class="blockquote-footer">{{single_studio.headings}}</footer>
 
       <div>
       <p>About: {{single_studio.about}} 
-          {% if request.user.profile|teacher_in_studio:single_studio.id %}
-          <small><a href="{% url 'update_single_studio' single_studio.slug %}">
-          </small>(Edit)
-        </a> 
+           
         {% endif %}
     </p>
  
 
     </div>
-<p>{{single_studio.address}}</p>
+<p>{{single_studio.address}} {{single_studio.address.city}}</p>
     </div>
   </div>
 

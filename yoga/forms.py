@@ -1,6 +1,7 @@
 from django import forms
 from .models import ClassInfo, Studio, Address,Lesson
 from django.forms.widgets import DateTimeInput
+from django.forms.models import inlineformset_factory
 
 
 
@@ -17,6 +18,13 @@ class StudioForm(forms.ModelForm):
         exclude = ['address','slug']
 
 
+
+class EditStudioForm(forms.ModelForm):
+    class Meta:
+        model = Studio
+        exclude = ['slug']
+
+    
 
 
 
@@ -51,3 +59,4 @@ class LessonForm(forms.ModelForm):
         }
 
 
+AddressFormSet = inlineformset_factory(Studio, Address, form=AddressForm,extra=1, fields=['address','address2','city'])
