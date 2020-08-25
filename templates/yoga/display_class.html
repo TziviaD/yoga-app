@@ -5,14 +5,18 @@
 <h1>All about the class</h1>
 <div>
 
-<h1>{{single_class.title}}</h1>
-<p>{{single_class.oneliner}}</p>
-<p>{{single_class.about}}</p>
-<p>{{single_class.teacher}}</p>
-<p>{{single_class.cost}}</p>
+  <h1>title: {{single_class.title}}</h1>
+  <p>oneliner:{{single_class.oneliner}}</p>
+  <p>about: {{single_class.about}}</p>
+  <p>teacher: {{single_class.teacher}}</p>
+  <p>cost: {{single_class.cost}}</p>
+  
+  </div>
 
-</div>
 
+  <small><a href="{% url 'update_update_class' display_class.slug %}">
+  </small>(Edit i added this and does not like this line)
+</a> 
 
 <div class="jumbotron">
     
@@ -21,7 +25,7 @@
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4">
     {% for lesson in classinfo.lesson_set.all %}
-    <p>time {{lesson.datetime}}</p>
+    <p>time {{classinfo.lesson_set.datetime}}</p>
     <p>duration {{lesson.duration}}</p>
 
     {% endfor %}

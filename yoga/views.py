@@ -193,8 +193,9 @@ class UpdateSingleStudioView(UpdateView):
 class UpdateClassView(UpdateView):
     model = ClassInfo
     form = ClassInfoForm
-    exclude = ['slug']
-    template_name = 'edit_class.html'
+    fields = ['title','oneliner','about','teacher','cost','studio']
+    template_name = 'studio/edit_class.html'
+    slug_field = 'slug'
    
 
 
