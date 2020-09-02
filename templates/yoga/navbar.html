@@ -1,68 +1,10 @@
 {% load static  %}
 
-{% comment %}
 
 
-<!--header area start-->
-<header>
-  <label for="check">
-    <i class="fas fa-bars" id="sidebar_btn"></i>
-  </label>
-  <div class="left_area">
-    <h3>Yoga <span>Finder put on nav bar</span></h3>
-  </div>
-  <div class="right_area">
-    <a href="#" class="logout_btn">Logout put on nav bar</a>
-  </div>
-</header>
-<!--header area end-->
 
-header{
-  z-index: 1;
-  position: fixed;
-  background: #22242A;
-  padding: 20px;
-  width: calc(100% - 0%);
-  top: 0;
-  height: 30px;
-}
-
-.left_area h3{
-  color: #fff;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 22px;
-  font-weight: 900;
-}
-
-.left_area span{
-  color: #19B3D3;
-}
-
-.logout_btn{
-  padding: 5px;
-  background: #19B3D3;
-  text-decoration: none;
-  float: right;
-  margin-top: -30px;
-  margin-right: 40px;
-  border-radius: 2px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #fff;
-  transition: 0.5s;
-  transition-property: background;
-}
-
-.logout_btn:hover{
-  background: #0B87A6;
-}
-
-
-{% endcomment %}
-
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top">
+  <div class='container'>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
@@ -99,6 +41,7 @@ header{
         </li>
       </ul>
     </div>
+  </div>  
   </nav>
 
 

@@ -10,11 +10,12 @@
 
 
 
-<h1>Hello {{user}}</h1>
+
 
  
 
 <div class="jumbotron main-block">
+  <h1>Hello {{user}}</h1>
   <h1 class="display-4">This is the home page</h1>
   <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
   <hr class="my-4">
@@ -39,8 +40,8 @@
         <div class="card-body">
           <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
           <p class="card-text">{{class.oneliner}}</p>
-          <a class="btn btn-primary" href="{% url 'display_class' class.title|slugify %}">Check out this Lesson</a>
           <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
+          <a class="btn btn-primary" href="{% url 'display_class' class.slug %}">Check out this Lesson</a>
           
         </div>
       </div>

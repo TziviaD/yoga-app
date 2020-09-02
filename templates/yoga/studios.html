@@ -10,10 +10,9 @@
 
     <div class="col mb-4">
       <div class="card">
-          <img name='studio_image' src="{{ studio.image.url }}" width="150" height="150">
-        {% if request.user.profile == studio.owner %}
-        <a href="{% url 'delete_head_studio_image' studio.image.id %}" class="btn btn-danger">Delete</a>
-        {% endif %}
+          <img name='studio_image' src="{{ studio.cover_image.url }}" width="150" height="150">
+
+
 
         
         <div class="card-body">

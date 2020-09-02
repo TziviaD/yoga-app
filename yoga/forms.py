@@ -14,7 +14,7 @@ class ClassInfoForm(forms.ModelForm):
     
     class Meta():
         model = ClassInfo
-        exclude = ['slug']
+        exclude = ['slug','studio']
         labels = {
             'title':'Class Name'
         }
@@ -35,9 +35,9 @@ class ClassInfoForm(forms.ModelForm):
                 'placeholder': 'How much does this class cost?',
                 'class':'form-control'
             }),
-            'studio': forms.Select(attrs={
-                'class':'form-control'
-            }),
+            # 'studio': forms.Select(attrs={
+            #     'class':'form-control'
+            # }),
         }
 
 

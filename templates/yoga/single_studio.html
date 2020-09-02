@@ -59,7 +59,7 @@
 
         <h5 class="card-title">{{class.title}}</h5>
         <p class="card-text">{{class.oneliners}}</p>
-        <a href="{% url 'display_class' class.title|slugify %}" class="btn btn-primary">Go somewhere</a>
+        <a href="{% url 'display_class' class.slug %}" class="btn btn-primary">Go somewhere</a>
       </div>
     </div>
     {% endfor %}

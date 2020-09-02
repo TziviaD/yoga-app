@@ -8,14 +8,15 @@ urlpatterns = [
     path('profile/account-settings', views.account_settings, name= 'account_settings'),
 
 
+
     path('create-studio/',views.create_studio, name='create_studio'),
     path('studios/', views.studios, name='studios'),
-    path('studio/delete/<id:studio_id', views.delete_head_studio_image, name='delete_head_studio_image'),
+
 
 
     path('studio/<slug:name>/', views.single_studio, name='single_studio'),
     path('studio/edit/<slug:slug>/', views.update_studio, name='update_studio' ),
-    path('studio/delete/<slug:studio_id>/', views.delete_studio_image, name='delete_studio_image'),
+    path('studio/delete/<int:studio_image_id>/', views.delete_studio_image, name='delete_studio_image'),
 
     path('create-class/', views.create_class, name='create'),
     path('class/<slug:name>/', views.display_class, name='display_class'),

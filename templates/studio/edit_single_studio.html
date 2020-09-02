@@ -28,7 +28,7 @@
     
     <h1>city of studio: {{address_form.city}}</h1>
     <h3>Studio Cover Image</h3>
-    {{studio_form.image}}
+    {{studio_form.cover_image}}
     <h3>Studios Images</h3>
     {{image_form}}
  
@@ -41,6 +41,7 @@
     <h5>image upload for class(on the card?...)</h5>
     
   <a href="{% url 'owner_invite' studio.slug %}" class="btn btn-primary">Add Teacher</a>
+
 
 
 {% comment %} 

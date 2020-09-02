@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 
 
 
+
 class Profile(models.Model): #techinacally move this to the access app makes more sence
     GENDER = (
         ('Female','Female'),
@@ -34,11 +35,15 @@ class ClassInfo(models.Model):
     
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title + self.studio.name)
+        super().save(*args, **kwargs)   
 
 class ClassInfoImage(models.Model):
 	classinfo = models.ForeignKey(ClassInfo, on_delete=models.CASCADE)
 	image = models.ImageField(default='class_default.jpg', upload_to='class_pics')
-
+    
 # s1 = Studio.objects.get(id=1)
 # studioimages = s1.studioimage_set.all()
 # for studioimage in studioimages:
@@ -82,7 +87,7 @@ class Studio(models.Model):
      #have many teachers for one studio
     headings = models.CharField(max_length=300)  #blank = true add this in
     about = models.TextField()
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    cover_image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     slug = models.SlugField(unique=True)
     owner = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owned_studios')
     invited_teachers = models.ManyToManyField(Profile, related_name='studio_invites')

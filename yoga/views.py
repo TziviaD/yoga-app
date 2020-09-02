@@ -133,6 +133,8 @@ def figure_out_what_studio(request):
     else:
         return render(request, 'yoga/select_studio.html')
 
+
+
 @login_required(login_url='login')
 def create_lesson(request, studio_id):
     from datetime import datetime
@@ -327,12 +329,13 @@ def studios(request): # all studios with clickable to go into specfic one
     studios = Studio.objects.all()
     return render(request, 'yoga/studios.html', {'studios':studios})
     
-def delete_head_studio_image(request,studio_id):
-    head_studio_image = Studio.objects.get(id=studio_id)
-    studio_id = head_studio_image.image
-    if head_studio_image.studio.owner == request.user.profile:
-        head_studio_image.delete()
-    return redirect('studios', studio_id)
+# def delete_head_studio_image(request,studio_id):
+#     studio_id = Studio.objects.get(id=studio_id)
+#     head_studio_image = studio_id.image
+#     if studio.id.owner == request.user.profile:
+#         head_studio_image.delete()
+        
+#     return redirect('studios')
 
 
 
@@ -344,8 +347,8 @@ def single_studio(request, name): #a specfic studio
     # # studio_classes = single_studio.classinfo_set.all()
     return render(request, 'yoga/single_studio.html', {'single_studio':single_studio} ) #how do pick a specfic one
 
-def delete_studio_image(request, studio_id):
-    studio_image = StudioImage.objects.get(id=studio_id)
+def delete_studio_image(request, studio_image_id):
+    studio_image = StudioImage.objects.get(id=studio_image_id)
     studio_slug = studio_image.studio.slug
     if studio_image.studio.owner == request.user.profile:
         studio_image.delete()
