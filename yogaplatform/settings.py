@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'access',
     'yoga',
     'django_filters',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'yogaplatform.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'yogafinder3',
+        'NAME': 'yogafinder4',
         'USER': 'postgres',
         'PASSWORD': 'Ellit123',
         'HOST': '127.0.0.1',
@@ -128,12 +129,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'display'
 
+CRISPY_TEMPLATE_PACK ='bootstrap4'
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
+STATICFILES_DIRS= [
+    os.path.join(BASE_DIR, 'static'),
+    ]
+# MEDIA:
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #only during development but when we deploy we will have to change it
+    

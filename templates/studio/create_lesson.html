@@ -19,6 +19,7 @@
               $('#id_datetime').datetimepicker();
             });
           </script>
+
     {% for field in lessonform %}
     <div class="form-group">
       {{field.label_tag}}
@@ -28,6 +29,7 @@
         {% endif %}
     </div>
     {% endfor %}
+
     <button type="submit" class='btn btn-primary'>Submit</button>
 </form>
 
@@ -36,6 +38,6 @@
   </script> 
 {% endblock %}
 
-I would prefer that user is able to pick a specfic time rather than every hour
+(I would prefer that user is able to pick a specfic time rather than every hour)
 
  

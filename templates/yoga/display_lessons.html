@@ -1,13 +1,16 @@
 {% extends "yoga/base.html" %}
 
 {% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'yoga/display_lessons.css' %}">
+{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https:/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="{% static 'yoga/display_lessons.css' %}">
+
 {% endblock %}
 
 <!-- 
@@ -39,33 +42,28 @@
 
 <h1>Upcoming lessons</h1>
 
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown link
+  </a>
 
-<div id="mySidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+<form "px-8 py-3">
+  <div class="form-group">
+    
+
+    <label for="exampleDropdownFormEmail1">City: {{lesson_filter.form.classinfo__studio__address__city}}</label>
+    <input type="city" class="form-control" placeholder="city">
+     <button type='submit'>Submit</button>
+  </div>
+
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+
+</form>
+  </div>
 </div>
-
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
-  <h2>Collapsed Sidebar</h2>
-  <p>Click on the hamburger menu/bar icon to open the sidebar, and push this content to the right.</p>
-</div>
-
-<script>
-  function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft= "0";
-  }
-</script>
-
 
 
 <div>
@@ -73,40 +71,53 @@
 </div>
 <div>
   
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Through </button>
+      <div class="dropdown-menu">
+        <p type="submit" class="btn btn-primary">++Studio Name: {{lesson_filter.form.classinfo__studio__name}}</p>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div role="separator" class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+      </div>
+    </div>
+    <input type="text" class="form-control" aria-label="Text input with dropdown button">
+  </div>
+
   
   <div>
     <h1>This is a test of filters</h1>
     
     <form method="GET">
       
-      {{lesson_filter.form.as_p}}
-      <p>Studio Name: {{lesson_filter.form.classinfo__studio__name}}</p>
-      <p>Class Title: {{lesson_filter.form.classinfo__title}} </p>
-      <p>City: {{lesson_filter.form.classinfo__studio__address__city}} </p>
+      {{lesson_filter.form.as_p}}<br>
+
+      <p class='form-control'>++Studio Name: {{lesson_filter.form.classinfo__studio__name}}</p>
+      <p class='form-control'>++Class Title: {{lesson_filter.form.classinfo__title}} </p>
+      <p class='form-control'>++City: {{lesson_filter.form.classinfo__studio__address__city}} </p>
 
       
       <button type='submit'>Submit</button>
       </form>
   
   <div class="card-columns">
-    {% for class in classinfos %}
-      {% for lesson in class.lesson_set.all %}
-        {% for obj in lesson_filter.qs %}
+ 
+        {% for lesson in lesson_filter.qs %}
           <div class="card">
             {{forloop.counter}}
             <img src="" class="card-img-top" alt="">
             <div class="card-body">
-              <h5 class="card-title">Lesson {{lesson.datetime|date:'F d, Y'}}  | {{obj.classinfo.title}} | {{obj.classinfo.studio.name}}</h5>
-              <p class="card-text">{{class.oneliner}}</p>
+              <h5 class="card-title">Lesson {{lesson.datetime|date:'F d, Y'}}  | {{lesson.classinfo.title}} | {{lesson.classinfo.studio.name}}</h5>
+              <p class="card-text">{{lesson.class.oneliner}}</p>
               
-              <a class="btn btn-primary" href="{% url 'display_class' class.title|slugify %}">Check out this Lesson</a>
-              <p> City: {{obj.classinfo.studio.address.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
+              <a class="btn btn-primary" href="{% url 'display_class' lesson.classinfo.slug|slugify %}">Check out this class</a>
+              <p> City: {{lesson.classinfo.studio.address_set.first.city}} | Duration: {{lesson.duration}} | Cost for Lesson: {{lesson.classinfo.cost}} NIS  </p>
               
             </div>
           </div>
         {% endfor %}
-      {% endfor %}
-    {% endfor %} 
+    
   </div>
   
 

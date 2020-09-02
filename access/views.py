@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from access.forms import UserSignupForm
 
-from yoga.models import Profile
+from .forms import OwnerInviteForm
+
+from yoga.models import Profile,Studio
 
 
 def signup(request): 
@@ -34,4 +36,47 @@ def signup(request):
 #             if submit = 'Creating a Studio':
 #                 return redirect('create_studio')
             
-          
+
+
+    
+# def owner_invite(request,studio_slug): # i only want the name of studio is cause i want it redirected to their studio page
+#     studio_slug = Studio.objects.get(slug= studio_slug)
+#     profile = request.user.profile
+#     form = OwnerInviteForm(request.POST)
+#     if profile.owned_studios:
+#         if request.method == 'POST': 
+#             form = OwnerInviteForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 return render(request,'profile/profile_settings.html') 
+#     form = OwnerInviteForm()
+#     return render(request,'access/owner_invite.html',{'form':form})
+
+
+
+    
+    
+def owner_invite(request,studio_slug): # i only want the name of studio is cause i want it redirected to their studio page
+    studio_slug = Studio.objects.get(slug= studio_slug)
+    profile = request.user.profile
+    form = OwnerInviteForm(request.POST) #this should be called email?
+    if profile.owned_studios:
+        if request.method == 'POST': 
+            profile, created = Profile.objects.get_or_create(email=email)  #cause what is the equaling this too?
+            if not Profile.objects.filter(email=email).exists(): 
+			    create_email = Profile(email=email)
+                create profile with email address
+
+            verifying profile with that email isnt already signed up
+		profile, created = Profile.objects.get_or_create(email=email)
+		
+
+
+
+
+            form = OwnerInviteForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return render(request,'profile/profile_settings.html') 
+    form = OwnerInviteForm()
+    return render(request,'access/owner_invite.html',{'form':form})
