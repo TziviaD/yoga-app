@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Studio, Profile, Address, ClassInfo, Lesson
+from .models import Studio, Profile, Address, ClassInfo, Lesson, StudioImage
 
 # Register your models here.
 
@@ -20,6 +20,8 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.register(Profile)
 
 admin.site.register(Address)
+
+admin.site.register(StudioImage)
 
 class ClassInfoAdmin(admin.ModelAdmin):
     model = ClassInfo

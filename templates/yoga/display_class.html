@@ -1,35 +1,51 @@
 {% extends "yoga/base.html" %}
-
+{% load teacher_check %}
 {% block content %}
 
 <h1>All about the class</h1>
 <div>
+
+
+  {% for classinfo_image in  single_class.classinfoimage_set.all %}
+  <img name='class_image' src="{{classinfo_image.image.url}}" width="150" height="150">
+  {% if request.user.profile == single_class.studio.owner %}
+  <a href="{% url 'delete_classinfo_image' classinfo_image.id %}" class="btn btn-danger">Delete</a>
+  {% endif %}
+  {%endfor%}
+
 
   <h1>title: {{single_class.title}}</h1>
   <p>oneliner:{{single_class.oneliner}}</p>
   <p>about: {{single_class.about}}</p>
   <p>teacher: {{single_class.teacher}}</p>
   <p>cost: {{single_class.cost}}</p>
-  
+
   </div>
 
+{% if request.user.profile == single_class.studio.owner %}
+  <small><a href="{% url 'update_class' single_class.slug %}">
+  (Edit i but anyone can view this)
+</a> </small>
+{% endif %}
 
-  <small><a href="{% url 'update_class' display_class.slug %}">
-  </small>(Edit i added this and does not like this line)
-</a> 
+
+
 
 <div class="jumbotron">
     
-    <h1 class="display-4">Hello, world!</h1>
-    
+    <h1 class="display-4">for loop for all the lessons on the class page </h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
     <hr class="my-4">
-    {% for lesson in classinfo.lesson_set.all %}
-    <p>time {{classinfo.lesson_set.datetime}}</p>
-    <p>duration {{lesson.duration}}</p>
+{% for lesson in single_class.lesson_set.all %}
+    <p>time {{lesson.datetime}}</p>
+    <p>duration {{lesson.duraFtion}}</p>
 
     {% endfor %}
   </div>
 
 
 {% endblock %}
+
+
+{% if request.user.profile|teacher_in_class:single_class.id %}
+{%endif%}

@@ -1,0 +1,10 @@
+<h1>Studio owner form where he inputs his teachers email</h1>
+
+
+<form method="POST">
+    {% csrf_token %}
+{{form.as_p}}
+
+<button type="submit">Send</button>
+
+</form>

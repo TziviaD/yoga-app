@@ -10,7 +10,11 @@
 
     <div class="col mb-4">
       <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+          <img name='studio_image' src="{{ studio.cover_image.url }}" width="150" height="150">
+
+
+
+        
         <div class="card-body">
           <a href="{% url 'single_studio' studio.name|slugify %}" class="card-title">{{studio.name}}</a>
           <p class="card-text">{{studio.headings}}</p>

@@ -1,0 +1,16 @@
+{% extends "yoga/base.html" %}
+
+{% block content %}
+{% for studio in request.user.profile.studio_invites.all %}
+
+    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add class to {{studio.name}}</a>
+{% endfor %}
+{% for studio in request.user.profile.owned_studios.all %}
+
+    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add class to {{studio.name}}</a>
+{% endfor %}
+{% endblock %}
+
+
+
+

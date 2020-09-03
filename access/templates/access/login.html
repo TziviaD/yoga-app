@@ -1,24 +1,32 @@
 {% extends "access/base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'access/login.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+
+<h1>Login page</h1>
+
+<form method="POST">
+    <table> 
+        
+        {{ form }}
+        
+    </table>
     
-
-    {% block content %}
+    {% csrf_token %}
+    <!-- #connecting? -->
     
-    <h1>Login page</h1>
+    <button type="submit" class="btn btn-success">Login</button>
+    <a class="btn btn-primary" href="{% url 'signup' %}">Sign Up</a>
     
-        <form method="POST">
-            <table> 
-                
-                {{ form }}
-
-            </table>
-            
-        {% csrf_token %}
-        <!-- #connecting? -->
-             
-            <button type="submit" class="btn btn-success">Login</button>
-            <a class="btn btn-primary" href="{% url 'signup' %}">Sign Up</a>
-            
-        </form>
+</form>
 
 
-        {% endblock content %}
+
+
+
+{% endblock content %}

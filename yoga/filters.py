@@ -2,17 +2,17 @@
 import django_filters
 from .models import Studio, ClassInfo, Lesson
 
-class StudioFilter(django_filters.FilterSet):
-    class Meta:
-       model = Studio
-       fields = ('name','address')
+# class StudioFilter(django_filters.FilterSet):
+#     class Meta:
+#        model = Studio
+#        fields = ('name','address')
 
     
 
-class ClassInfoFilter(django_filters.FilterSet):
-    class Meta:
-        model = ClassInfo
-        fields = ('cost','teacher')
+# class ClassInfoFilter(django_filters.FilterSet):
+#     class Meta:
+#         model = ClassInfo
+#         fields = ('cost','teacher')
 
 class LessonFilter(django_filters.FilterSet):
     classinfo__studio__name = django_filters.CharFilter(field_name='classinfo__studio__name', lookup_expr='icontains')

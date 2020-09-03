@@ -1,48 +1,74 @@
 {% extends "yoga/base.html" %}
 {% load teacher_check %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'yoga/single_studio.css' %}">
+{% endblock %}
+
 {% block content %}
 
 
+
 <div class="card">
-    <div class="card-body">
-      {% if request.user.profile|teacher_in_studio:single_studio.id %}
-          <small><a href="{% url 'update_studio' single_studio.slug %}">
-          </small>(Edit)
-        </a>
+  <div class="card-body">
+    {% if request.user.profile == single_studio.owner %}
+    <small><a href="{% url 'update_studio' single_studio.slug %}">
+      (Edit)
+    </a> </small>
+    {% endif %}
 
-      <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
-      <footer class="blockquote-footer">{{single_studio.headings}}</footer>
 
-      <div>
-      <p>About: {{single_studio.about}} 
-           
-        {% endif %}
-    </p>
- 
+    {% for studio_image in single_studio.studioimage_set.all %}
+    <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
+    {% if request.user.profile == single_studio.owner %}
+    <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
+    {%endfor%}
 
+
+
+
+
+    
+    
+    
+
+    <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
+    <footer class="blockquote-footer">{{single_studio.headings}}</footer>
+    
+    <div>
+      <p>About: {{single_studio.about}}
+      </p>
+      
+      
     </div>
-<p>{{single_studio.address}} {{single_studio.address.city}}</p>
-    </div>
+    <p>{{single_studio.address}} {{single_studio.address.city}}</p>
   </div>
+</div>
 
 <h1>Classes with the studio</h1>
 
-      
+
 <div class="row">
 
-    <div class="col-sm-6">
-      {% for class in single_studio.classinfo_set.all %}
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">{{class.title}}</h5>
-          <p class="card-text">{{class.oneliners}}</p>
-          <a href="{% url 'display_class' class.title|slugify %}" class="btn btn-primary">Go somewhere</a>
-        </div>
+  <div class="col-sm-6">
+    {% for class in single_studio.classinfo_set.all %}
+    <div class="card">
+      <div class="card-body">
+        <img name='class_image' src="{{ class.classinfoimage_set.first.image.url }}" width="150" height="150">
+
+        <h5 class="card-title">{{class.title}}</h5>
+        <p class="card-text">{{class.oneliners}}</p>
+        <a href="{% url 'display_class' class.slug %}" class="btn btn-primary">Go somewhere</a>
       </div>
-      {% endfor %}
-
     </div>
-<div>
+    {% endfor %}
+    
+    
 
 
-{% endblock %}
+  </div>
+  
+
+    
+    {% endblock %}

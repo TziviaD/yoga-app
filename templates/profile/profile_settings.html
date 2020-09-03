@@ -1,38 +1,63 @@
-{% extends 'yoga/base.html' %}
+{% extends 'profile/base.html' %}
+
 
 
 
 {% block content %}
-    <h1>  </h1>
 
-<div class="content-section">
-    <div class='media'>
+<form method="POST" enctype="multipart/form-data">
 
-        <img class="rounded-circle" account-img" src="{{ user.profile.image.url }}" width="150" height="150">
-        <div class="media-body">
-            <h2 class="account-heading"> {{user.username}}</h2>
-            <p class="text-secondarty">{{user.email}}</p>
-        </div>
-    </div>
+  {% csrf_token %}    
+ 
+
+
+  <img class="rounded-circle account-img" name='profileimage' src="{{ request.user.profile.image.url }}" width="150" height="150">
+
+  <input type="file" name="image" accept="image/*" id="id_image">
+  <button type="submit" class="btn btn-primary">Upload</button>
+
+<div class="media-body">
+  <h2 class="account-heading"> {{user.username}}</h2>
+</div>
+</div>
 </div>
 
-<style>
 
-  .content-section {
-    background: #ffffff;
-    padding: 10px 500px;
-    border: 1px solid #dddddd;
-    border-radius: 3px;
-    margin-bottom: 20px;
-  }
 
-  .account-img {
-    height: 50px;
-    width: 50px;
-    margin-right: 20px;
-    margin-bottom: 16px;
-  }
-  
-</style>
+
+<div class="border-bottom mb-4">Profile Info</div>
+<p>First Name: {{user_form.first_name}}</p>
+<p>Last Name: {{user_form.last_name}}</p>
+
+{% if user.profile.is_teacher %}
+<p>You are a teacher of the Studio {{user.profile.studio.name}} </p>
+{% else %}
+<p>You are a student </p>
+{% endif %}
+</div>
+<button type="submit" class="btn btn-primary">Update</button>
+
+</form>
 
 {% endblock %}
+
+  <style>
+    
+    .content-section {
+      background: #ffffff;
+      padding: 10px 500px;
+      border: 1px solid #dddddd;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+    
+    .account-img {
+      height: 50px;
+      width: 50px;
+      margin-right: 20px;
+      margin-bottom: 16px;
+    }
+    
+  </style>
+
+

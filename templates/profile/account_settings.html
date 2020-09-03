@@ -1,0 +1,11 @@
+{% extends 'profile/base.html' %}
+
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+<p class="text-secondarty"> Email: </p>
+<p class="text-secondarty"> Password: {{form.password}}</p>
+{{form}}
+<button type="submit" name=submit class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
