@@ -63,12 +63,12 @@ def owner_invite(request,studio_slug): # i only want the name of studio is cause
     if profile.owned_studios:
         if request.method == 'POST': 
             profile, created = Profile.objects.get_or_create(email=email)  #cause what is the equaling this too?
-            if not Profile.objects.filter(email=email).exists(): 
-			    create_email = Profile(email=email)
-                create profile with email address
+        #     if not Profile.objects.filter(email=email).exists(): 
+		# 	    create_email = Profile(email=email)
+        #         create profile with email address
 
-            verifying profile with that email isnt already signed up
-		profile, created = Profile.objects.get_or_create(email=email)
+        #     verifying profile with that email isnt already signed up
+		# profile, created = Profile.objects.get_or_create(email=email)
 		
 
 

@@ -9,10 +9,30 @@
 {% block content %}
 
 
+<section id='hero'>
+  <div class="container">
+    <div class="row main-hero-content">
+      <div class="col-md-6">
+        <h1>Hello {{user}}</h1>
+        <h1 class="display-4">This is the home page</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
 
-<h1>Hello {{user}}</h1>
 
- 
+        <a class="btn btn-primary btn-lg" href="{% url 'display' %}">View Upcoming Lessons</a>
+        {% if user.profile.is_teacher == False %}    
+        <a class="btn btn-primary btn-lg" href="{% url 'create_studio' %}">Create Studio</a>
+        {% endif %}
+        </div>
+        <div class="col-md-6">
+          
+          
+
+      </div>
+    </div>
+  </div>
+</section>
 
 <div class="jumbotron main-block">
   <h1 class="display-4">This is the home page</h1>
@@ -24,33 +44,33 @@
     
     
     
-   
     
     
-      
-    </div>
     
-    <div class="card-columns">
-       <p name='random_classes'>random classes</p>
-      {% for class in random_classes %}
-      <div class="card">
-        {{forloop.counter}}
-        <img src="" class="card-img-top" alt="">
-        <div class="card-body">
-          <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
-          <p class="card-text">{{class.oneliner}}</p>
-          <a class="btn btn-primary" href="{% url 'display_class' class.title|slugify %}">Check out this Lesson</a>
-          <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
-          
-        </div>
+    
+  </div>
+  
+  <div class="card-columns">
+    <p name='random_classes'>random classes</p>
+    {% for class in random_classes %}
+    <div class="card">
+      {{forloop.counter}}
+      <img src="" class="card-img-top" alt="">
+      <div class="card-body">
+        <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
+        <p class="card-text">{{class.oneliner}}</p>
+        <a class="btn btn-primary" href="{% url 'display_class' class.title|slugify %}">Check out this Lesson</a>
+        <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
+        
       </div>
-      {% endfor %}
+    </div>
+    {% endfor %}
     
     
     
     
     
-      
+    
     
     
     
