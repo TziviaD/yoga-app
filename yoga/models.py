@@ -6,7 +6,7 @@ from django.utils.text import slugify
 
 from django.contrib.auth.models import User 
 
-
+ 
 
 
 
@@ -21,7 +21,7 @@ class Profile(models.Model): #techinacally move this to the access app makes mor
     image = models.ImageField(default='default.jpg', upload_to='profile_pics') #profile_pics just the directory the images get upluad to
     email = models.EmailField(unique=True)
     def __str__(self):
-        return f"Profile {self.user.username}  {self.is_teacher}"
+        return f"Profile {self.email}  {self.is_teacher}"
     
 
 class ClassInfo(models.Model):
@@ -113,11 +113,5 @@ class StudioImage(models.Model):
         return self.studio.name
 
 
-# class Image(models.Model):
-#     title = models.CharField(max_length=200)
-#     image = models.ImageField(upload_to='images')
 
-#     def __str__(self):
-#         return self.title
 
-# teachers have access to sign up

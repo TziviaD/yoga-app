@@ -24,6 +24,52 @@ import random
 
 
 
+from PIL import Image #autosave for the class if you delete
+
+
+
+from django.core.mail import send_mail, BadHeaderError
+from django.http import HttpResponse
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.contrib import messages
+
+def password_reset_request(request):
+	if request.method == "POST":
+		password_reset_form = PasswordResetForm(request.POST)
+		if password_reset_form.is_valid():
+			data = password_reset_form.cleaned_data['email']
+			associated_users = User.objects.filter(Q(email=data))
+			if associated_users.exists():
+				for user in associated_users:
+					subject = "Password Reset Requested"
+					email_template_name = "password/password_reset_email.txt"
+					c = {
+					"email":user.email,
+					'domain':'127.0.0.1:8000',
+					'site_name': 'Website',
+					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
+					'token': default_token_generator.make_token(user),
+					'protocol': 'http',
+					}
+					email = render_to_string(email_template_name, c)
+					try:
+						send_mail(subject, email, 'admin@example.com' , [user.email], fail_silently=False)
+					except BadHeaderError:
+
+						return HttpResponse('Invalid header found.')
+						
+					messages.success(request, 'A message with reset password instructions has been sent to your inbox.')
+					return redirect ("home")
+			messages.error(request, 'An invalid email has been entered.')
+	password_reset_form = PasswordResetForm()
+	return render(request=request, template_name="password/password_reset.html", context={"password_reset_form":password_reset_form})
+
 
 def home(request):
     return render(request, 'yoga/home.html')
@@ -160,6 +206,22 @@ def create_lesson(request, studio_id):
     lessonform.fields['classinfo'].queryset = studio.classinfo_set.all()
     return render(request, 'studio/create_lesson.html', {'lessonform': lessonform})
 
+
+@login_required(login_url='login')   
+def update_lesson(request,lesson_id):
+    lesson = Lesson.objects.get(id=lesson_id)
+    if request.method == "POST":
+        lesson_form = UpdateLesson(request.POST, instance=lesson)
+        if lesson_form.is_valid():
+            lesson = lesson_form.save()
+            return redirect('display_class', lesson.classinfo.slug)
+    lesson_form = LessonForm(instance=lesson)
+    return render (request, 'studio/edit_lesson.html', {'lesson_form': lesson_form})
+   
+
+
+
+
 # @login_required(login_url='login')
 # def profile_settings(request):
 #     return render(request,'profile/profile_settings.html')
@@ -230,8 +292,6 @@ def update_basic_profile(request):
 
 
 
-
-
 def account_settings(request):
     profile = request.user.profile
     if request.method == 'POST':
@@ -248,6 +308,26 @@ def account_settings(request):
     return render(request, 'profile/account_settings.html', {
         'form': form
     })
+
+
+
+
+# def account_settings(request):
+#     profile = request.user.profile
+#     if request.method == 'POST':
+#         form = PasswordChangeForm(request.user.profile, request.POST)
+#         if form.is_valid():
+#             user = form.save()
+#             update_session_auth_hash(request, user)  # Important!
+#             messages.success(request, 'Your password was successfully updated!')
+#             return redirect('profile/account_settings.html')
+#         else:
+#             messages.error(request, 'Please correct the error below.')
+#     else:
+#         form = PasswordChangeForm(request.user)
+#     return render(request, 'profile/account_settings.html', {
+#         'form': form
+#     })
 
 
 
@@ -339,7 +419,6 @@ def studios(request): # all studios with clickable to go into specfic one
 
 
 
-
 @login_required(login_url='login')
 def single_studio(request, name): #a specfic studio
     single_studio = Studio.objects.get(slug = name) 
@@ -352,6 +431,9 @@ def delete_studio_image(request, studio_image_id):
     studio_slug = studio_image.studio.slug
     if studio_image.studio.owner == request.user.profile:
         studio_image.delete()
+        if studio_image.id == 0:
+            studio_image = Image.open(default='studio_default.jpg')
+            studio.show()
     return redirect('single_studio', studio_slug)
 
 
@@ -359,7 +441,7 @@ def delete_studio_image(request, studio_image_id):
 def update_studio(request,slug):
     studio = Studio.objects.get(slug = slug)
     if request.method == 'POST':
-        studio_form = StudioForm(request.POST, instance=studio)
+        studio_form = StudioForm(request.POST, request.FILES, instance=studio)
         address_form = AddressForm(request.POST, instance=studio.address_set.first())
         image_form = ImageStudioForm(request.POST, request.FILES)
         if studio_form.is_valid() and address_form.is_valid() and image_form.is_valid():

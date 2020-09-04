@@ -69,7 +69,7 @@ class StudioForm(forms.ModelForm):
                 'placeholder': 'About',
                 'class':'form-control'
             }),
-            'image': forms.FileInput(attrs={
+            'cover_image': forms.FileInput(attrs={
                 'class':'form-control'
             }),
 
@@ -195,3 +195,8 @@ class ProfileUpdatedForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
+class UpdateLesson(forms.ModelForm):
+    class Meta:
+        model = Lesson
+        fields = '__all__'

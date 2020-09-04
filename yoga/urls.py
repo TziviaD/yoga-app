@@ -28,7 +28,10 @@ urlpatterns = [
 
     path('create-lesson/<int:studio_id>', views.create_lesson, name='create_lesson'),
     path('lessons/', views.display_lessons, name='display'),
+    path('lesson/edit/<int:lesson_id>', views.update_lesson, name='update_lesson'),
 
     path('testing/',views.testing, name='testing'),
+
+    path("password_reset", views.password_reset_request, name="password_reset"),
     
 ]

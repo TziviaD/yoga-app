@@ -1,0 +1,16 @@
+{% extends "yoga/base.html" %}
+
+{% block content %}
+
+<h1>edit the lesson</h1>
+<div>
+  
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %} 
+{{lesson_form}}
+
+
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
