@@ -5,11 +5,12 @@
 
 <h1>Signup</h1>
 <form method="POST">
+    
     <table>        
         <th>
             
-            <label for='firstname'> Firstname 
-                <input type="text" name='first_name' class="form-control" placeholder="Firstname"</label>
+            <label for='firstname'> Firstname</label> 
+                <input type="text" name='first_name' class="form-control" placeholder="Firstname" maxlength="150" id="id_first_name">
             </th>
             <tr>
                 <th>
@@ -20,12 +21,14 @@
                 </td>
             </tr>
             <tr>
+                {% if request.profile.is_teacher == False  %}
                 <th>
                     <label for="id_email">Email address:</label>
                 </th>
                 <td>
                     <input type="email" name="email" class="form-control" maxlength="254" id="id_email">
                 </td>
+                {% endif %}
             </tr>
             <tr>
                 <th>
@@ -57,7 +60,11 @@
                         </td>
                     </tr>
                     
-                    
+                </table>
+                {% csrf_token %}
+                <button type="submit">Signup</button>
+            </form> 
+            
                     
                     
                     
@@ -93,12 +100,6 @@
                         
                         
                         
-                        
-                    </table>
-                    {% csrf_token %}
-                    <button type="submit">Signup</button>
-                </form> 
-                
-                
+
                 
                 {% endblock content %} 

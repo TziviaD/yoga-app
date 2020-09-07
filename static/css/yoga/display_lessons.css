@@ -1,4 +1,23 @@
+*{
+  margin: 0;
+  padding: 0;
 
+}
+
+
+.search-txt {
+  background:rgb(240, 240, 240);
+  height:40px;
+  border-radius: 40px;
+  padding: 10px;
+}
+  
+
+
+
+
+
+/* 
 body {
     font-family: "Lato", sans-serif;
     background-color: rgb(253, 253, 247);
@@ -60,4 +79,4 @@ body {
   @media screen and (max-height: 450px) {
     .sidebar {padding-top: 15px;}
     .sidebar a {font-size: 18px;}
-  }
+  } */

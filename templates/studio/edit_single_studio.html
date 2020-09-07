@@ -31,8 +31,12 @@
     {{studio_form.cover_image}}
     
     <h3>Studios Images</h3>
-    {{image_form}}
  
+{{image_form}}
+ 
+
+
+
     <button type="submit" class="btn btn-primary">Submit</button>
  
 
@@ -45,7 +49,24 @@
 
 
 
-{% comment %} 
+{% comment %}
+<tr>
+  <th>
+    <label for="id_image">Image:</label>
+  </th>
+  <td>
+    <input type="files" name="studio_image" accept="image/*" id="id_image">
+  </td>
+</tr>
+{% for one_image in image_form %}
+   
+    
+{{ forloop.counter }}
+<input name="files" type="file" accept="image/*" multiple>
+
+
+{% endfor %}
+{{one_image}} 
 {% for field in form %}
   <div class="form-group">
     {{field.label_tag}}

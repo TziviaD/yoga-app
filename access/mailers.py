@@ -6,15 +6,17 @@ from django.template.loader import render_to_string
 
 from django.contrib.sites.shortcuts import get_current_site
 
-def send_teacher_invite(request,teacher_email):
-    current_site = get_current_site(request)
-    subject = 'welcome to GFG world'
-    message = render_to_string('access/signup_email.html', {
-            'domain': current_site.domain})
+from django.urls import reverse
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
 
-    email_from = settings.EMAIL_HOST_USER 
-    recipient_list = [teacher_email] 
-    send_mail( subject, message, email_from, recipient_list ) 
+def send_teacher_invite(request,teacher_profile):
+    current_site = get_current_site(request)
+    uid = urlsafe_base64_encode(force_bytes(teacher_profile.pk))
+    string = reverse('teacher_signup',kwargs={'uidb64':uid})
+    print(string)
+
+
 
 
 

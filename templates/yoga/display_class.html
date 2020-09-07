@@ -3,7 +3,11 @@
 {% block content %}
 
 <h1>All about the class</h1>
+
+<a href="{% url 'single_studio' single_class.studio.slug %}" class="btn btn-primary">Studio</a>
+
 <div>
+  
 
 
   {% for classinfo_image in  single_class.classinfoimage_set.all %}
@@ -14,7 +18,7 @@
   {%endfor%}
 
 
-  <h1>title: {{single_class.title}}</h1>
+  <h1>Name of Class: {{single_class.title}} | {{single_class.studio.name}}</h1>
   <p>oneliner:{{single_class.oneliner}}</p>
   <p>about: {{single_class.about}}</p>
   <p>teacher: {{single_class.teacher}}</p>
@@ -42,6 +46,13 @@
 
     {% endfor %}
   </div>
+
+
+
+
+
+
+
 
 
 {% endblock %}

@@ -1,8 +1,18 @@
 {% extends "yoga/base.html" %}
 
+{% load static %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/yoga/studios.css' %}">
+{% endblock css %}
+
 {% block content %}
 
+<div class="topic">
 <h1>All of the studios we are connected with </h1>
+</div>
+
 
 
 <div class="row row-cols-1 row-cols-md-2">

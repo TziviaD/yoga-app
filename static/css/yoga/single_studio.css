@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+   font-family: 'Raleway', sans-serif;
+  /* might need to take off border box on everything */
+   box-sizing: border-box;
+   
+}
+
+
+
+#studio-information {
+    margin: 10%;
+    background-color: #fafafa;
+
+}
+
+/* might be able to delete not doing anything */
+#studio-information:after{
+    content:'';
+    display:block;
+    clear:both;
+} 
+
+
+/* +++++++++++++CLASS CARDS+++++++++++++++++ */
+
+#cards {
+    background: #fafafa;
+    padding: 3rem 1rem;
+    text-align: center;
+}
+
+
+#cards h1 {
+    font-weight: 900;
+    font-size: 35px;
+    padding-bottom: 1rem;
+}
+
+#cards .title {
+    text-align: center;
+    padding: 1rem 2rem;
+}
+
+#cards .card .card-body {
+    box-shadow: 0 0 2px  rgba(0, 0, 0, 1);
+}
+
+#cards .card {
+    margin: 2rem 1rem;
+}
+
+#cards .card-body a {
+    color: blue;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#cards .card-body a:hover {
+    color: black;
+    text-decoration: none;
+
+}

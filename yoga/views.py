@@ -72,7 +72,13 @@ def password_reset_request(request):
 
 
 def home(request):
-    return render(request, 'yoga/home.html')
+    klasses = []
+    klasses = random.choices(ClassInfo.objects.all(), k=3)
+    # for num in range(3): doent really make sence but works
+    #     id = random.randint(1, ClassInfo.objects.last().id)
+    #     klasses.append(ClassInfo.objects.get(id=id))
+    return render(request, 'yoga/home.html',{'klasses':klasses})
+
 # def home(request):
 #     max_id=ClassInfo.objects.all().aggregate(max_id=Max('id'))['max_id']
 #     while True:
@@ -81,6 +87,9 @@ def home(request):
 #         if classinfo:
 #             return render(request, 'yoga/home.html', {'classinfo':classinfo})
 #     return render(request, 'yoga/home.html')
+
+
+
 
     
 # class HomePage():
@@ -355,7 +364,6 @@ def account_settings(request):
 #         'profile_form':profile_form
 #     }
 #     return render(request,'profile/profile_settings.html', context)
-
 
 
 

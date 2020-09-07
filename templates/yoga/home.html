@@ -3,8 +3,10 @@
 
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'yoga/home.css' %}">
+<link rel="stylesheet" href="{% static 'css/yoga/home.css' %}">
 {% endblock %}
+
+
 
 {% block content %}
 
@@ -12,56 +14,226 @@
 
 
 
- 
 
-<div class="jumbotron main-block">
-  <h1>Hello {{user}}</h1>
-  <h1 class="display-4">This is the home page</h1>
-  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="{% url 'display' %}">View Upcoming Lessons</a>
+
+<!-- Hero edited with original content combined with the new section -->
+
+<section id="hero">
+  
+  <div class="container">
     
-    
-    
-   
-    
-    
+    <div class="row main-hero-conent">
+      
+      <div class="col-md-6">
+        <h1>Hello {{user}}</h1>
+        <h1>Welcome to YogaFinder</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Labore nemo id at accusamus aspernatur quia sapiente temporibus 
+          quaerat qui eius ipsum corrupti ipsa quidem vitae possimus nobis, ex laboriosam harum.</p>
+          <div class="hero-button">
+            <a href="{% url 'display' %}" class="btn btn-outline-primary btn-white">View Upcoming Lessons</a>
+            <a href="{% url 'create_studio' %}#" class="btn btn-outline-primary btn-white">Create Studio</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="image-box">
+            <img src="../../media/home_pics/yogapose.jfif" class="img-fluid" alt="">
+          </div>
+        </div>
+        
+      </div>
       
     </div>
     
-    <div class="card-columns">
-       <p name='random_classes'>random classes</p>
-      {% for class in random_classes %}
-      <div class="card">
-        {{forloop.counter}}
-        <img src="" class="card-img-top" alt="">
-        <div class="card-body">
-          <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
-          <p class="card-text">{{class.oneliner}}</p>
-          <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
-          <a class="btn btn-primary" href="{% url 'display_class' class.slug %}">Check out this Lesson</a>
+  </section>
+  
+  
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <div class="move">
+      <div class="container">
+        
+        <div class="row section-title justify-content-center">
+          <h2 class="section-title-heading"> All about YogaFinder </h2>
+        </div>
+        
+        <div class="row justify-content-center text-center mt-5">
+          <div class="col-md-4">
+            <!-- icion, size, margin -->
+            <i class='fas fa-cogs fa-3x mb-2'></i>
+            <h3>Easy To Use</h3>
+            <p>some words aboyt fgybhuinjkds  jshdfn in lksud lajsidf lud aliduf sdufi df</p>
+          </div>
+          
+          <div class="col-md-4">
+            <i class='fas fa-bell fa-3x mb-2'></i>
+            <h3>Many Studios</h3>
+            <p>some words aboyt fgybhuinjkds  jshdfn in lksud lajsidf lud aliduf sdufi df</p>
+          </div>
+          
+          <div class="col-md-4">
+            <i class='fas fa-power-off fa-3x mb-2'></i>
+            <h3>some stuff 1</h3>
+            <p>some words aboyt fgybhuinjkds  jshdfn in lksud lajsidf lud aliduf sdufi df</p>
+          </div>
+          
           
         </div>
+        
       </div>
-      {% endfor %}
-    
-    
-    
-    
-    
       
+    </div>
+  </section>
+  
+  
+  <!-- FEATURE SECTION -->
+  <section id="features">
+    
+    <div class="container">
+      
+      <div class="row section-title justify-content-center">
+        <h2 class="yoga-title section-title-heading"> YogaFinder Features </h2>
+      </div>
+      
+      <div class="row">
+        
+        <div class="col-md-4">
+          <div class="feature-block">
+            <img src="../../media/home_pics/icon.png" alt="" width="100" height="100">
+            <h3 class=" text-center">Feature 1</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, eaque fugit beatae maxime qui recusandae tempore voluptates blanditiis quidem porro totam numquam, nobis facere eum ipsa rerum suscipit incidunt expedita.</p>
+          </div>
+          <div class="feature-block mt-5">
+            <img src="../../media/home_pics/icon.png" alt="" width="100" height="100">
+            <h3 class=" text-center">Feature 2</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, eaque fugit beatae maxime qui recusandae tempore voluptates blanditiis quidem porro totam numquam, nobis facere eum ipsa rerum suscipit incidunt expedita.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4 device mt-5">
+          <img src="../../media/home_pics/yogapose.jfif" class="img-fluid" alt="">
+        </div>
+        <div class="col-md-4">
+          <div class="feature-block">
+            <img src="../../media/home_pics/icon.png" alt="" width="100" height="100">
+            <h3 class=" text-center">Feature 1</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, eaque fugit beatae maxime qui recusandae tempore voluptates blanditiis quidem porro totam numquam, nobis facere eum ipsa rerum suscipit incidunt expedita.</p>
+          </div>
+          
+          <div class="feature-block mt-5">
+            <img src="../../media/home_pics/icon.png" alt="" width="100" height="100">
+            <h3 class=" text-center">Feature 2</h3>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, eaque fugit beatae maxime qui recusandae tempore voluptates blanditiis quidem porro totam numquam, nobis facere eum ipsa rerum suscipit incidunt expedita.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </section>
+  
+  
+  <!-- DOWNLOAD SECTION -->
+  <section id="download">
+    
+    <div class="container">
+      
+      <div class="row download-title justify-content-center">
+        <h2>Connect Studio</h2>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+          Architecto, eaque fugit beatae maxime qui recusandae tempore 
+          voluptates blanditiis quidem porro totam numquam, nobis facere eum ipsa rerum suscipit incidunt expedita.</p>
+          <div class="download-btns">
+            <a href="#"><i class="fab fa-apple"></i>Signup</a>
+            <a href="{% url 'create_studio' %}"><i class="fab fa-android"></i>Create Studio</a>
+            
+          </div>
+        </div>
+      </div>
+      
+    </section> 
     
     
     
-  </p>
-</div>
-<div>
-  {% if user.profile.is_teacher == False %}    
-  <a class="btn btn-primary btn-lg" href="{% url 'create_studio' %}">Create Studio</a>
-  {% endif %}
-</div>
+    <!-- RANDOM CLASSES SECTION -->
+    
+    <section id="white-fill">
+      
+      <div class="container">
+        <div class="row download-title justify-content-center">
+          <div class="card-columns">
+            {% for class in klasses %}
+            <div class="card">
+              {{forloop.counter}}
+              <img src="" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title">cLASS{{class.title}} | {{class.studio.name}}</h5>
+                <p class="card-text">{{class.oneliner}}</p>
+                <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
+                <a class="btn btn-primary" href="{% url 'display_class' class.slug %}">Check out this Lesson</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section> 
+      
+      
+      
+      
 
 
-{% endblock %}
+      
+      
+      
+      <div class="jumbotron main-block">
+        <h1>Hello {{user}}</h1>
+        <h1 class="display-4">This is the home page</h1>
+        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="{% url 'display' %}">View Upcoming Lessons</a>
+          
+          
+          
+        </div>
+        
+        <div class="card-columns">
+          <p name='random_classes'>random classes</p>
+          {% for class in klasses %}
+          <div class="card">
+            {{forloop.counter}}
+            <img src="" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
+              <p class="card-text">{{class.oneliner}}</p>
+              <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
+              <a class="btn btn-primary" href="{% url 'display_class' class.slug %}">Check out this Lesson</a>
+              
+            </div>
+          </div>
+          {% endfor %}
+          
+          
+          
+        </p>
+      </div>
+      <div>
+        {% if user.profile.is_teacher == False %}    
+        <a class="btn btn-primary btn-lg" href="{% url 'create_studio' %}">Create Studio</a>
+        {% endif %}
+      </div>
+      
+      
+      
+      
+      
+      <di
+      
+      
+      
+      
+      
+      
+      {% endblock %}
+      

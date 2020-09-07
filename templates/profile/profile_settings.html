@@ -1,6 +1,10 @@
 {% extends 'profile/base.html' %}
+{% load static %}
 
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile/profile_settings.css' %}">
+{% endblock css %}
 
 
 {% block content %}
@@ -9,8 +13,6 @@
 
   {% csrf_token %}    
  
-
-
   <img class="rounded-circle account-img" name='profileimage' src="{{ request.user.profile.image.url }}" width="150" height="150">
 
   <input type="file" name="image" accept="image/*" id="id_image">
@@ -21,9 +23,6 @@
 </div>
 </div>
 </div>
-
-
-
 
 <div class="border-bottom mb-4">Profile Info</div>
 <p>First Name: {{user_form.first_name}}</p>
@@ -41,23 +40,7 @@
 
 {% endblock %}
 
-  <style>
-    
-    .content-section {
-      background: #ffffff;
-      padding: 10px 500px;
-      border: 1px solid #dddddd;
-      border-radius: 3px;
-      margin-bottom: 20px;
-    }
-    
-    .account-img {
-      height: 50px;
-      width: 50px;
-      margin-right: 20px;
-      margin-bottom: 16px;
-    }
-    
+
   </style>
 
 

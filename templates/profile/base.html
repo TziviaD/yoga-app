@@ -9,31 +9,125 @@
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   
+  {# for the image gallery #}
   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
   
-  <link rel="stylesheet" href="{% static 'profile/profile.css' %}">
+  {# end for the image gallery #}
+  
+  {# to build profile sidebar #}
+  <script src="https://kit.fontawesome.com/yourcode.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" charset="utf-8"></script>
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+  
+  <link rel="stylesheet" type="text/css" href="{% static 'css/profile/base.css' %}">
+  
+  
+  {% block css %}
+  {% endblock css %}
+  
   
 </head>
 <body>
+  
   
   {% include 'yoga/navbar.html' %}
   
   
   
   
-  <h3>Our Sidebar</h3>
-
-
-<p class='text-muted'>You can put any information here you'd like.
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-light"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
-    <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
- 
+  
+  
+  <sidebar id="sidebar">
+    <h3>Our Sidebar </h3>
     
+    <p class='text-muted'>You can put any information here you'd like.</p>
+    
+    <div class="container">
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-light test"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
+        <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
+        
+        {% if request.user.profile.is_teacher  %}
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            
+            <div class="card-header" id="headingOne">
+              <h2 class="mb-0">
+                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                  Studio - Class - Lessons 
+                </button>
+              </h2>
+            </div>
+            
+            <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                {% for studio in request.user.profile.owned_studios.all %}
+                <ul>
+                  
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="card">
+                        <div class="card-body">
+                          
+                          <h5><a href="{% url 'update_studio' studio.slug %}"class="card-title studio">Edit Studio: {{studio.name}}<a/></h5>
+                            {% for klass in studio.classinfo_set.all  %}
+                            <p><a href="{% url 'update_class' klass.slug %}" class="card-text klass">Class: {{klass.title}} | Studio: {{studio.name}}</a></p>
+                            
+                            {% for les in klass.lesson_set.all  %}
+                            <p><a href="{% url 'update_lesson' les.id %}" class="card-text lesson">lesson: {{les.datetime}}</a></p>
+                            
+                            {% endfor %}
+                            {% endfor %}
+                            
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                    
+                  </ul>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
+        {% endif %}
+      </ul>
+    </div>
+  </sidebar>
+  
+  {% block content %}
+  
+  {% endblock %}
+  
+  
+  
+  
+  
+  {% comment %}
+  
+  <h3>Our Sidebar </h3>
+  
+  
+  <p class='text-muted'>You can put any information here you'd like.</p>
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-light test"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
+    <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
+    
+    {% if request.user.profile.is_teacher.all  %}
     <div class="accordion" id="accordionExample">
       <div class="card">
+        
         <div class="card-header" id="headingOne">
           <h2 class="mb-0">
             <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
@@ -46,110 +140,38 @@
           <div class="card-body">
             {% for studio in request.user.profile.owned_studios.all %}
             <ul>
-              <li><a href="{% url 'update_studio' studio.slug %}" >Edit Studio: {{studio.name}}</a>
-                
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Classes
-
-                      </button>
-                    </h2>
-                  </div>
-
-
-                <ul>
-                  
-                    
-                    {% for klass in studio.classinfo_set.all  %}
-                    <li><a href="{% url 'update_class' klass.slug %}" >Class: {{klass.title}} | Studio: {{studio.name}}</a></li>
-                    
-                    {% for les in klass.lesson_set.all  %}
-                    <li><a href="#" >lesson: {{les.datetime}}</a></li>
-                
-
-                    {% endfor %}
-
-
-                    {% endfor %}
-                  
-                </ul>
-              </li>
-            </ul>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-     
-    
-    
-
-
-<P>=========================================</P>
-
-
-      
-<p class='text-muted'>You can put any information here you'd like.
-  <ul class="list-group">
-    <li class="list-group-item list-group-item-light"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
-    <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
- 
-    
-    <div class="accordion" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-              Studio - Class - Lessons move it around 
-            </button>
-            
-          </h2>
-        </div>
-        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              {% for studio in request.user.profile.owned_studios.all %}
-              <li><a href="{% url 'update_studio' studio.slug %}" >Edit Studio: {{studio.name}}</a>
-            </button>
-        <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            
-            <ul>
               
-                
-                <div class="card">
-                  <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                      {% for klass in studio.classinfo_set.all  %}
-                      <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      
+                      <h5><a href="{% url 'update_studio' studio.slug %}"class="card-title studio">Edit Studio: {{studio.name}}<a/></h5>
+                        {% for klass in studio.classinfo_set.all  %}
+                        <p><a href="{% url 'update_class' klass.slug %}" class="card-text klass">Class: {{klass.title}} | Studio: {{studio.name}}</a></p>
                         
-                    <li><a href="{% url 'update_class' klass.slug %}" >Class: {{klass.title}} | Studio: {{studio.name}}</a></li>
-                    
-                      </button>
-                    </h2>
+                        {% for les in klass.lesson_set.all  %}
+                        <p><a href="{% url 'update_lesson' les.id %}" class="card-text lesson">lesson: {{les.datetime}}</a></p>
+                        
+                        {% endfor %}
+                        {% endfor %}
+                        
+                      </div>
+                    </div>
                   </div>
-
-
-                <ul>
-                  
-                    
-                    
-                    {% for les in klass.lesson_set.all  %}
-                    <li><a href="{% url 'update_lesson' les.id %}" >lesson: {{les.datetime}}</a></li>
+                </div>
+                {% endfor %}
                 
-
-                    {% endfor %}
-
-
-                    {% endfor %}
-                  
-                </ul>
-              </li>
-            </ul>
-            {% endfor %}
+              </ul>
+            </div>
           </div>
+          
         </div>
       </div>
+      {% endif %}
+    </ul>
     
+    {% comment %}
     
     
     {% block content %}
@@ -163,5 +185,147 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     
+    
   </body>
   </html>
+  
+  
+  
+  {%comment%}
+  
+  <P>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++</P>
+  
+  
+  <h3>Our Sidebar</h3>
+  
+  
+  <p class='text-muted'>You can put any information here you'd like.
+    <ul class="list-group">
+      <li class="list-group-item list-group-item-light"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
+      <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
+      
+      
+      <div class="accordion" id="accordionExample">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Studio - Class - Lessons 
+              </button>
+            </h2>
+          </div>
+          
+          <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              {% for studio in request.user.profile.owned_studios.all %}
+              <ul>
+                <li><a href="{% url 'update_studio' studio.slug %}" >Edit Studio: {{studio.name}}</a>
+                  
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h2 class="mb-0">
+                        <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Classes
+                          
+                        </button>
+                      </h2>
+                    </div>
+                    
+                    
+                    <ul>
+                      
+                      
+                      {% for klass in studio.classinfo_set.all  %}
+                      <li><a href="{% url 'update_class' klass.slug %}" >Class: {{klass.title}} | Studio: {{studio.name}}</a></li>
+                      
+                      {% for les in klass.lesson_set.all  %}
+                      <li><a href="#" >lesson: {{les.datetime}}</a></li>
+                      
+                      
+                      {% endfor %}
+                      
+                      
+                      {% endfor %}
+                      
+                    </ul>
+                  </li>
+                </ul>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+          
+          <P>=========================================</P>
+          
+          
+          
+          <p class='text-muted'>You can put any information here you'd like.
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-light"><a href="{% url 'update_basic_profile' %}" >Edit Profile - name-change profile picture username</a></li>
+              <li class="list-group-item list-group-item-light"><a href="{% url 'account_settings' %}" >Account settings - email - password</a></li>
+              
+              
+              <div class="accordion" id="accordionExample">
+                <div class="card">
+                  <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                      <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Studio - Class - Lessons move it around 
+                      </button>
+                      
+                    </h2>
+                  </div>
+                  <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {% for studio in request.user.profile.owned_studios.all %}
+                    <li><a href="{% url 'update_studio' studio.slug %}" >Edit Studio: {{studio.name}}</a>
+                    </button>
+                    <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+                      <div class="card-body">
+                        
+                        <ul>
+                          
+                          
+                          <div class="card">
+                            <div class="card-header" id="headingTwo">
+                              <h2 class="mb-0">
+                                {% for klass in studio.classinfo_set.all  %}
+                                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                  
+                                  <li><a href="{% url 'update_class' klass.slug %}" >Class: {{klass.title}} | Studio: {{studio.name}}</a></li>
+                                  
+                                </button>
+                              </h2>
+                            </div>
+                            
+                            
+                            <ul>
+                              
+                              
+                              
+                              {% for les in klass.lesson_set.all  %}
+                              <li><a href="{% url 'update_lesson' les.id %}" >lesson: {{les.datetime}}</a></li>
+                              
+                              
+                              {% endfor %}
+                              
+                              
+                              {% endfor %}
+                              
+                            </ul>
+                          </li>
+                        </ul>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  {% endcomment %}
+                  
+                  
+                  
+                  

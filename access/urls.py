@@ -14,6 +14,7 @@ path('signup/', views.signup, name='signup'),
 path('logout/', LogoutView.as_view(), name='logout'), #we dont have a template name cause we are redirecting it to a page
 
 path('owner-invite/<slug:studio_slug>', views.owner_invite, name='owner_invite'),
+path('teacher-signup/<uidb64>', views.teacher_signup, name='teacher_signup'),
 
 
 path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='password/password_reset_done.html'), name='password_reset_done'),

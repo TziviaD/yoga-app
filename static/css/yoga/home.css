@@ -1,3 +1,271 @@
-.main-block {background-color: rgb(250, 226, 226);}
-h1   {color:rgb(0, 0, 0);}
-p    {color: black;}
+
+/* section title */
+
+/* ********NAVAGATION************ */
+
+
+:root {
+    --main-accent-color: #03bad5;
+    --section-title-color-dark: #37474f;
+    --body-color: #495057;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    font-family: 'Raleway', sans-serif;
+    font-size: 2.6rem;
+    line-height: 4rem;
+    font-weight: 800;
+}
+
+.btn-white {
+    border: 2px solid black;
+    border-radius: 2rem;
+    color: black;
+    font-weight: 600;
+    text-transform: lowercase;
+    font-size: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.btn-white:hover {
+    background-color: black;
+    color: var(--main-accent-color);
+    border: 2px solid black;
+}
+
+
+
+/* ********SECTION************ */
+
+
+.section-title {
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    border-bottom: 5px solid var(--main-accent-color);
+    width: 10%;
+    top: 88px;
+}
+
+
+.section-title:hover::after {
+    width:30%;
+    transition: all 0.6s ease-out;
+    -webkit-transition: all 0.6s ease-out;
+    -moz-transition: all 0.6s ease-out;
+    -o-transition: all 0.6s ease-out;
+}
+
+
+h2.section-title-heading {
+    color: var(--section-title-color-dark);
+    padding-top: 2rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 1.8rem;
+
+}
+
+
+
+/* ********HERO************ */
+#hero {
+    background-image: linear-gradient(to right, rgba(0,172,217,0.62), rgba(105,240,174, 0.52)), url('../../../media/home_pics/cotten_candy.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+    position: relative;
+}
+
+#hero::after {
+    content: '';
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    height: 15.5%;
+    transform: skewY(-2deg);
+    transform-origin: bottom right;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.main-hero-conent h1 {
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: .11rem;
+}
+
+.main-hero-conent p {
+    color: #ffffff;
+    margin-top: #ffffff;
+    margin-bottom: 3rem;
+    line-height: 1.7rem;
+    font-size: 1.3rem;
+}
+
+.image-box img {
+    position: absolute;
+    top: 4rem;
+    z-index: 1;
+}
+
+
+/* ********ABOUT************ */
+
+
+
+#about i {
+    color: var(--main-accent-color);
+    
+}
+
+#about i {
+    color: var(--section-title-color-dark);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    
+}
+
+#about .move {
+    margin-top: 10px;
+}
+#about p {
+    color: var(--body-color);
+    font-size: 1rem;
+    line-height: 1.7rem;
+}
+
+#about::after {
+    content: '';
+    position: absolute;
+    background-color:#fafafa;
+    width: 100%;
+    height: 13%;
+    transform: skewY(-2deg);
+    transform-origin: bottom right;
+    /* change to -150 figure out how to go to background  */
+    bottom: -310px; 
+    right: 0;
+    left: 0;
+
+}
+
+
+
+/* ********FEATUES************ */
+
+#features {
+    background: #fafafa;
+    padding-bottom: 4rem;
+    margin-top: 9rem;
+}
+
+#features img {
+    display: block;
+    /* will center image */
+    margin: 0 auto;
+
+}
+
+#features .feature-block {
+    text-align: center;
+}
+
+#features .feature-block h3 {
+    color: var(--section-title-color-dark);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+}
+
+#features .feature-block img {
+    padding-bottom: 1rem;
+}
+
+#features .feature-block p {
+    color: var(--body-color);
+    font-size: 1rem;
+    line-height: 1.7rem;
+
+}
+
+
+
+/* ********DOWNLOADS************ */
+
+#download {
+    background-image: linear-gradient(to right, rgba(0,172,217,0.62), rgba(105,240,174, 0.52)), url('../../../media/home_pics/cotten_candy.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    /* might need to remove it */
+    padding-top: 8rem;
+    padding-bottom: 6rem;
+    position: relative;
+}
+
+
+#download::before {
+    content: '';
+    position: absolute;
+    background-color:#fafafa;
+    width: 100%;
+    height: 20%;
+    transform: skewY(-2deg);
+    transform-origin: top right;
+    /* change to -150 figure out how to go to background  */
+    top:-4rem;
+    right: 0;
+    left: 0;
+}
+
+/* might be able to delete not doing anything */
+#download .download-title h2 {
+    padding-top: 10rem;
+    color: white;
+}
+
+#download .download-title p {
+    color:#ffffff;
+    text-align: center;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    margin-top: 2.5rem;
+}
+
+#download .download-title .download-btns{
+    margin-top: 4rem;
+}
+
+#download .download-title .download-btns a {
+    border: 2px solid #ffffff;
+    border-radius: 2rem;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: .8rem 2rem;
+}
+
+#download .download-title .download-btns a:hover {
+    background-color: #ffffff;
+    color: var(--main-accent-color);
+    border: 2px solid #ffffff;
+}
+
+
+
+
+#white-fill {
+    margin-top: 10rem;
+    margin-bottom: 20rem;
+}

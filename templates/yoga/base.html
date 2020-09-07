@@ -11,8 +11,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/yoga/main.css' %}" >
     
+<!-- google fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
     {% block css %}
-    {% endblock %}
+    {% endblock css %}
+
     {% block head %}
     <!-- jQuery -->
    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -30,6 +34,7 @@
     {% include 'yoga/navbar.html' %}
   
     
+
 
 
     {% block content %}

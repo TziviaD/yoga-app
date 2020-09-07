@@ -2,73 +2,180 @@
 {% load teacher_check %}
 {% load static %}
 {% block css %}
-<link rel="stylesheet" href="{% static 'yoga/single_studio.css' %}">
+<link rel="stylesheet" href="{% static 'css/yoga/single_studio.css' %}">
 {% endblock %}
 
-{% block content %}
 
-
-
-<div class="card">
-  <div class="card-body">
-    {% if request.user.profile == single_studio.owner %}
-    <small><a href="{% url 'update_studio' single_studio.slug %}">
-      (Edit)
-    </a> </small>
-    {% endif %}
-
-
-    {% for studio_image in single_studio.studioimage_set.all %}
-    <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
-    {% if request.user.profile == single_studio.owner %}
-    <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
-    {% endif %}
-    {%endfor%}
-
-
-
-
-
-    
-    
-    
-
-    <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
-    <footer class="blockquote-footer">{{single_studio.headings}}</footer>
-    
-    <div>
-      <p>About: {{single_studio.about}}
-      </p>
+{% comment %}
+<section id="uploaded-images">
+  
+  <div class="card">
+    <div class="card-body">
       
       
-    </div>
-    <p>{{single_studio.address}} {{single_studio.address.city}}</p>
-  </div>
-</div>
-
-<h1>Classes with the studio</h1>
-
-
-<div class="row">
-
-  <div class="col-sm-6">
-    {% for class in single_studio.classinfo_set.all %}
-    <div class="card">
-      <div class="card-body">
-        <img name='class_image' src="{{ class.classinfoimage_set.first.image.url }}" width="150" height="150">
-
-        <h5 class="card-title">{{class.title}}</h5>
-        <p class="card-text">{{class.oneliners}}</p>
-        <a href="{% url 'display_class' class.slug %}" class="btn btn-primary">Go somewhere</a>
+      
+      {% for studio_image in single_studio.studioimage_set.all %}
+      <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
+      {% if request.user.profile == single_studio.owner %}
+      <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
+      {% endif %}
+      {%endfor%}
+    </section>
+    
+    
+    
+    
+    {% endcomment %}
+    
+    
+    
+    {% block content %}
+    
+    
+    
+    <section id="studio-information">
+      <div class="wrapper">
+        <h1>{{single_studio.name}} <br> Studio with all the classes and lessons</h1>
+        <footer class="blockquote-footer">{{single_studio.headings}}</footer>
+        
+        <div>
+          <p>About: {{single_studio.about}}
+          </p>
+          
+          {% if request.user.profile == single_studio.owner %}
+          <small><a href="{% url 'update_studio' single_studio.slug %}">
+            (Edit)
+          </a> </small>
+          {% endif %}
+          
+        </div>
+        <p>{{single_studio.address}} {{single_studio.address.city}}</p>
       </div>
     </div>
-    {% endfor %}
-    
-    
-
-
   </div>
-  
+</section>
 
+
+
+
+
+
+
+<section id="cards">
+  
+  <div class="container">
+    <div class="title">
+      <h1>Classes with the studio</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+    </div>
+      <div class="row">
+        {% for class in single_studio.classinfo_set.all %}
+        <div class="col-ml-4">
+          
+          <div class="card text-center">
+            
+            <img name='class_image' src="{{ class.classinfoimage_set.first.image.url }}" width="150" height="150">
+            
+            <div class="card-body">
+              <h5 class="card-title">{{class.title}}</h5>
+              <p class="card-text">{{class.oneliners}}</p>
+              <a href="{% url 'display_class' class.slug %}">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        
+
+      </div>
+    </div>
+  </section>
+  
+  
+  <section id="uploaded-images">
+  
+    <div class="card">
+      <div class="card-body">
+        
+        
+        
+        {% for studio_image in single_studio.studioimage_set.all %}
+        <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
+        {% if request.user.profile == single_studio.owner %}
+        <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+        {%endfor%}
+      </section>
+
+  
+  {% endblock %}
+  
+  {% comment %}
+  
+  <h1>IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</h1>
+  
+  <section id="card-classes">
     
-    {% endblock %}
+    
+    <div class="container">
+      <h1>Classes with the studio</h1>
+      <div class="row row-cols-1 row-cols-md-2">
+        
+        <div class="col-sm-3">
+          {% for class in single_studio.classinfo_set.all %}
+          <div class="card">
+            <div class="card-body">
+              <img name='class_image' src="{{ class.classinfoimage_set.first.image.url }}" width="150" height="150">
+              
+              <h5 class="card-title">{{class.title}}</h5>
+              <p class="card-text">{{class.oneliners}}</p>
+              <a href="{% url 'display_class' class.slug %}" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+          {% endfor %}
+          
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    
+    
+    <div class="gallery-section">
+      <div class="inner-width">
+        
+        <h1>Gallery</h1>
+        
+        <div class="border">
+          {# do i rhave to register the photo as a url to have it 'pop up'? #}
+          <div class="gallery">
+            
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            <a href="#" class="gallery-image">
+              <img src="../../media/home_pics/icon.png" alt="">
+            </a>
+            
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    
+    {% endcomment%}
+    
+    

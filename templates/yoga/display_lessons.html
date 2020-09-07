@@ -1,9 +1,11 @@
 {% extends "yoga/base.html" %}
 
 {% load static %}
+
 {% block css %}
-<link rel="stylesheet" href="{% static 'yoga/display_lessons.css' %}">
+<link rel="stylesheet" href="{% static 'css/yoga/display_lessons.css' %}">
 {% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https:/resources/demos/style.css">
@@ -42,49 +44,15 @@
 
 <h1>Upcoming lessons</h1>
 
-<div class="dropdown show">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Dropdown link
-  </a>
+<section id="filters">
+  <div class="search-box">
+    <p>Studio Name: {{lesson_filter.form.classinfo__studio__name}}<input class="search-txt" type="text" name="" placeholder="Type to Search"></p>
+    <a href="#" class="search-btn"></a>
+    <i class="fas fa-search"></i>
 
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-<form "px-8 py-3">
-  <div class="form-group">
-    
-
-    <label for="exampleDropdownFormEmail1">City: {{lesson_filter.form.classinfo__studio__address__city}}</label>
-    <input type="city" class="form-control" placeholder="city">
-     <button type='submit'>Submit</button>
   </div>
 
-    <a class="dropdown-item" href="#">Action</a>
-    <a class="dropdown-item" href="#">Another action</a>
-    <a class="dropdown-item" href="#">Something else here</a>
-
-</form>
-  </div>
-</div>
-
-
-<div>
-  <p>Organize by Studio/Location/Time</p>
-</div>
-<div>
-  
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter Through </button>
-      <div class="dropdown-menu">
-        <p type="submit" class="btn btn-primary">++Studio Name: {{lesson_filter.form.classinfo__studio__name}}</p>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div role="separator" class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-      </div>
-    </div>
-    <input type="text" class="form-control" aria-label="Text input with dropdown button">
-  </div>
-
+</section>
   
   <div>
     <h1>This is a test of filters</h1>
@@ -92,41 +60,41 @@
     <form method="GET">
       
       {{lesson_filter.form.as_p}}<br>
-
+      
       <p class='form-control'>++Studio Name: {{lesson_filter.form.classinfo__studio__name}}</p>
       <p class='form-control'>++Class Title: {{lesson_filter.form.classinfo__title}} </p>
       <p class='form-control'>++City: {{lesson_filter.form.classinfo__studio__address__city}} </p>
-
+      
       
       <button type='submit'>Submit</button>
-      </form>
-  
-  <div class="card-columns">
- 
-        {% for lesson in lesson_filter.qs %}
-          <div class="card">
-            {{forloop.counter}}
-            <img src="" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title">Lesson {{lesson.datetime|date:'F d, Y'}}  | {{lesson.classinfo.title}} | {{lesson.classinfo.studio.name}}</h5>
-              <p class="card-text">{{lesson.class.oneliner}}</p>
-              
-              <a class="btn btn-primary" href="{% url 'display_class' lesson.classinfo.slug|slugify %}">Check out this class</a>
-              <p> City: {{lesson.classinfo.studio.address_set.first.city}} | Duration: {{lesson.duration}} | Cost for Lesson: {{lesson.classinfo.cost}} NIS  </p>
-              
-            </div>
-          </div>
-        {% endfor %}
+    </form>
     
-  </div>
-  
-
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-        
-  {% endblock %}
-  
-  
-  
+    <div class="card-columns">
+      
+      {% for lesson in lesson_filter.qs %}
+      <div class="card">
+        {{forloop.counter}}
+        <img src="" class="card-img-top" alt="">
+        <div class="card-body">
+          <h5 class="card-title">Lesson {{lesson.datetime|date:'F d, Y'}}  | {{lesson.classinfo.title}} | {{lesson.classinfo.studio.name}}</h5>
+          <p class="card-text">{{lesson.class.oneliner}}</p>
+          
+          <a class="btn btn-primary" href="{% url 'display_class' lesson.classinfo.slug|slugify %}">Check out this class</a>
+          <p> City: {{lesson.classinfo.studio.address_set.first.city}} | Duration: {{lesson.duration}} | Cost for Lesson: {{lesson.classinfo.cost}} NIS  </p>
+          
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+    
+    
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
+    {% endblock %}
+    
+    
+    

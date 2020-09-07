@@ -18,7 +18,7 @@ class Profile(models.Model): #techinacally move this to the access app makes mor
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     gender = models.CharField(max_length=100, null=True, choices=GENDER)
     is_teacher = models.BooleanField(default=False)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics') #profile_pics just the directory the images get upluad to
+    image = models.ImageField(default='profile_pics/default.jpg', upload_to='profile_pics') #profile_pics just the directory the images get upluad to
     email = models.EmailField(unique=True)
     def __str__(self):
         return f"Profile {self.email}  {self.is_teacher}"

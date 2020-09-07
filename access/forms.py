@@ -31,3 +31,9 @@ class OwnerInviteForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['email']
+
+class TeacherSignupForm(UserCreationForm):
+    class Meta:
+        model =User
+        fields = ['first_name', 'last_name','username'] #all everything that will show up on the form
+        # fields = ['username'] #all everything that will show up on the form

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Studio, Profile, Address, ClassInfo, Lesson, StudioImage
+from .models import *
 
 # Register your models here.
 
@@ -22,6 +22,8 @@ admin.site.register(Profile)
 admin.site.register(Address)
 
 admin.site.register(StudioImage)
+
+
 
 class ClassInfoAdmin(admin.ModelAdmin):
     model = ClassInfo
