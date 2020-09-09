@@ -9,8 +9,8 @@
 
 
 
-<header>
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+<header >
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top thenav">
     <div class="container">
       <a class="navbar-brand" href="#"> Image</a>
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,14 +36,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'studios' %}">All Studios</a>
           </li>
-          
+          {% if user.profile.owned_studios.all or user.profile.is_teacher %}  
           <li class="nav-item dropdown">
             
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add 
             </a>
-            {# take away create studio  #}
-            {% if user.profile.owned_studios.all or user.profile.is_teacher %}  
+            
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="{% url 'figure_out_what_studio' %}">Add Lesson or Class</a>
 

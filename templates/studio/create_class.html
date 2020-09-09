@@ -1,17 +1,27 @@
 {% extends "yoga/base.html" %}
 
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/yoga/create_class.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<h6>
-  to do:
-  can have the same name of classes in studios. need to figure out a way to figure it out
-</h6>
 
+<section id="create-class">
 {% if user.profile.is_teacher %}
 <form method= "POST" enctype="multipart/form-data">
   {% csrf_token %}    
   
   {% for field in form %}
+  <div class="form-group">
+    {{field.label_tag}}
+    {{field}}
+  </div>
+  {% endfor %}
+  {% for field in image %}
   <div class="form-group">
     {{field.label_tag}}
     {{field}}
@@ -26,5 +36,5 @@
   <a class="btn btn-primary" href="{% url 'display' %}">Check out upcoming classes</a>
 </div>
 {% endif %}
-
+</section>
 {% endblock content %}

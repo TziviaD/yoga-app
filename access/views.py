@@ -44,7 +44,6 @@ def signup(request):
             
 
 
-
     
 def owner_invite(request,studio_slug): # i only want the name of studio is cause i want it redirected to their studio page
     studio = Studio.objects.get(slug= studio_slug)
@@ -55,6 +54,7 @@ def owner_invite(request,studio_slug): # i only want the name of studio is cause
             form = OwnerInviteForm(request.POST)
             if form.is_valid():
                 profile = form.save()
+                studio.invited_teachers.add(profile)
                 send_teacher_invite(request, profile)
                 return render(request,'profile/profile_settings.html') 
     form = OwnerInviteForm()

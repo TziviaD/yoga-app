@@ -2,6 +2,73 @@
 {% load teacher_check %}
 {% block content %}
 
+<div class="jumbotron">
+  <h1 class="display-4">All about the class</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  
+  <hr class="my-4">
+  <h1>Name of Class: {{single_class.title}} | Studio: {{single_class.studio.name}}</h1>
+    <p class="blockquote-footer">oneliner:{{single_class.oneliner}}</p>
+    <p>about: {{single_class.about}}</p>
+    <p>teacher: {{single_class.teacher}}</p>
+    <p>cost: {{single_class.cost}}</p>
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  
+  <h3>Check out the studio that has this class:   <a href="{% url 'single_studio' single_class.studio.slug %}" class="btn btn-primary btn-lg">{{single_class.studio.name}}</a></h3>
+
+</div>
+
+
+
+<section id="headclass">
+  <h1>Lessons:</h1>
+  
+ 
+  
+  
+  
+  {% if request.user.profile == single_class.studio.owner %}
+    <small><a href="{% url 'update_class' single_class.slug %}">
+    (Edit i but anyone can view this)
+  </a> </small>
+  {% endif %}
+  
+  
+  </section>
+  
+  
+  
+  {% for lesson in single_class.lesson_set.all %}
+  <div class="row">
+    <div class="col-sm-6">
+    <div class="card" style="width: 18rem;">
+      
+      <div class="card-body">
+        <h5 class="card-title"></h5>
+        
+      <p>Date and Time {{lesson.datetime}}</p>
+      <p>Duration of Lesson {{lesson.duration}}</p>
+      </div>
+      </div>
+     </div>
+    </div> 
+    {% endfor %}
+
+    {% if request.user.profile == single_class.studio.owner %}
+    <small><a href="{% url 'update_class' single_class.slug %}">
+    (Edit i but anyone can view this)
+  </a> </small>
+  {% endif %}
+
+  {% for classinfo_image in  single_class.classinfoimage_set.all %}
+<img name='class_image' src="{{classinfo_image.image.url}}" width="150" height="150">
+{% if request.user.profile == single_class.studio.owner %}
+<a href="{% url 'delete_classinfo_image' classinfo_image.id %}" class="btn btn-danger">Delete</a>
+{% endif %}
+{%endfor%}
+
+{% comment %}
+<p>+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=</p>
 
 <section id="headclass">
 <h1>All about the class</h1>
@@ -9,7 +76,6 @@
 <a href="{% url 'single_studio' single_class.studio.slug %}" class="btn btn-primary">Studio</a>
 
 <div>
-
 
 
   {% for classinfo_image in  single_class.classinfoimage_set.all %}
@@ -54,7 +120,7 @@
    </div>
   </div> 
   {% endfor %}
-
+  {% endcomment %}
   
 
 

@@ -8,27 +8,6 @@
 
 
 {% block content %}
-<section id="basic-profile">
-  <form method="POST" enctype="multipart/form-data">
-    
-    {% csrf_token %}    
-    <div class="image-section">
-
-      <img class="rounded-circle account-img" name='profileimage' src="{{ request.user.profile.image.url }}" width="150" height="150">
-      
-      <input type="file" name="image" accept="image/*" id="id_image">
-      <button type="submit" class="btn btn-primary">Upload</button>
-    </div>
-    <div class="media-body">
-      <h2 class="account-heading"> Hello {{user.username}}!</h2>
-    </div>
-  </div>
-
-</div>
-
-<div class="border-bottom "> 
-  <h4>Profile Info</h4>
-</div>
 <div class="name">
 <p>First Name: {{user_form.first_name}}</p>
 <p>Last Name: {{user_form.last_name}}</p>

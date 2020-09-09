@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-
-
-    <h1>Hi So happy you are here</h1>
-    <p>Wahoo</p>
-    <p>Have a great life</p>
-
-    
-{{url}}
-
+    <form method="POST">
+        {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Signup</button>
+</form>
 </body>
 </html>

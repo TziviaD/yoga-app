@@ -6,26 +6,7 @@
 {% endblock %}
 
 
-{% comment %}
-<section id="uploaded-images">
-  
-  <div class="card">
-    <div class="card-body">
-      
-      
-      
-      {% for studio_image in single_studio.studioimage_set.all %}
-      <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
-      {% if request.user.profile == single_studio.owner %}
-      <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
-      {% endif %}
-      {%endfor%}
-    </section>
-    
-    
-    
-    
-    {% endcomment %}
+
     
     
     
@@ -111,6 +92,28 @@
   
   {% comment %}
   
+
+
+  <section id="uploaded-images">
+    
+    <div class="card">
+      <div class="card-body">
+        
+        
+        
+        {% for studio_image in single_studio.studioimage_set.all %}
+        <img name='studio_image' src="{{studio_image.image.url}}" width="150" height="150">
+        {% if request.user.profile == single_studio.owner %}
+        <a href="{% url 'delete_studio_image' studio_image.id %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+        {%endfor%}
+      </section>
+      
+      
+      
+      
+
+
   <h1>IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</h1>
   
   <section id="card-classes">

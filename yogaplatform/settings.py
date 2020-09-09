@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'yogaplatform.custom_context_processor.subject_renderer'
             ],
         },
     },
@@ -146,10 +147,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #only during development but when we deploy we will have to change it
-    
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'tzivdruin@gmail.com' 
-EMAIL_HOST_PASSWORD = 'Ilovemonkeys12' 
 
+#gmail_send/settings.py
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tzivdruin@gmail.com'
+EMAIL_HOST_PASSWORD = 'noywwtwicyeasdrg' #past the key or password app here
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'tzivdruin@gmail.com' #'default from email'

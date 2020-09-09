@@ -41,7 +41,6 @@ class ClassInfoForm(forms.ModelForm):
             }),
         }
 
-
 class ClassInfoImageForm(forms.ModelForm):
     class Meta:
         model = ClassInfoImage

@@ -1,0 +1,9 @@
+#card-box {
+    display: flex;
+    justify-content: center;
+    
+    margin: auto;
+    margin-top: 8rem;
+    width: fit-content;
+}
+

@@ -176,21 +176,25 @@ def create_studio(request):
 
 
 
-
 @login_required(login_url='my_login') 
 def create_class(request, slug):
     studio = Studio.objects.get(slug = slug)
     form = ClassInfoForm(request.POST)
+    image_form = ClassInfoImageForm(request.POST, request.FILES)
     # if request.user.profile.owned_studios or request.user.profile.studio_invites:
     #     studioname = form.studio.name 
     if request.method == 'POST':
         form = ClassInfoForm(request.POST, request.FILES)
+        image_form = ClassInfoImageForm(request.POST, request.FILES)
         if form.is_valid():
             # studioname.save()
             classinfo = form.save(commit=False) 
             classinfo.slug =slugify(classinfo.title)
             classinfo.studio = studio
             classinfo.save()
+            image = image_form.save(commit=False)
+            image.classinfo = classinfo
+            image.save()
             return redirect('single_studio',classinfo.studio.slug)
         else:
             print('errors')
@@ -200,7 +204,7 @@ def create_class(request, slug):
             # return render(request, 'yoga/single_studio.html', {'single_studio':single_studio})
             # return redirect('single_studio', single_studio ) #this view and variable
     else: #why dosent it come down to here?
-        return render(request, 'studio/create_class.html',context={'form' : ClassInfoForm()})
+        return render(request, 'studio/create_class.html',context={'form' : ClassInfoForm(), 'image':ClassInfoImageForm()})
 
 
 # @login_required(login_url='login') 

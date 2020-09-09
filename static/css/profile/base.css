@@ -8,3 +8,25 @@
   width: 25%;
   padding-left: 10px;
 } 
+
+#basic-profile{
+  background: #fafafa;
+  margin: auto;
+  margin-top: -14rem;
+  padding-top: 4.9rem;
+  padding-left: 45rem;
+
+}
+
+
+.image-section #basic-profile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.border-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

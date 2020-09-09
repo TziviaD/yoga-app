@@ -8,11 +8,16 @@
 <section class="account">
 <form method="POST">
 {% csrf_token %}
-<p class="text-secondarty"> Email: {{user.email}} </p>
-<p class="text-secondarty"> Password: 
 
+
+
+
+<section id="account_settings">
+<p class="text-secondarty"> Email: {{user.email}} </p>
+<p class="text-secondarty"> Password: **********</p> 
 <a href="{% url 'password_reset' %}">Forgot password?</a> 
 <button type="submit" name=submit class="btn btn-primary">Submit</button>
+</section>
 </form>
 </section>
 
@@ -26,6 +31,3 @@
 
 
 
-
-{{form.password}}</p>
-{{form}}

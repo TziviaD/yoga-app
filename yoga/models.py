@@ -22,9 +22,9 @@ class Profile(models.Model): #techinacally move this to the access app makes mor
     def __str__(self):
         return f"Profile {self.email}  {self.is_teacher}"
     
-    def save(self, *args, **kwargs):
-        self.email = self.user.email
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.email = self.user.email
+    #     super().save(*args, **kwargs)
 
 class ClassInfo(models.Model):
     title = models.CharField(max_length=100)

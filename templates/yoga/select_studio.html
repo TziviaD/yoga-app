@@ -1,18 +1,33 @@
 {% extends "yoga/base.html" %}
 
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/yoga/select_studio.css' %}">
+{% endblock %}
+
 {% block content %}
 
-<p>Hi<br> hello</p>
-<p>Hi<br> hello</p>
-<p>Hi<br> hello</p>
-<p>Hi<br> hello3</p>
-{% for studio in studios.distinct %}
-    <h1>{{studio.name}}</h1>
-    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add lesson</a>
-    <a type="button" class="btn btn-secondary" href="{% url 'create' studio.slug %}">Add class</a>
-{% endfor %}
 
+
+<section id="card-box">
+  {% for studio in studios.distinct %}
+  <div class="card onecard" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">Name of studio: {{studio.name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add lesson</a>
+      <a type="button" class="btn btn-secondary" href="{% url 'create' studio.slug %}">Add class</a>
+    </div>
+  </div>
+  {% endfor %}
+</section>
 
 
 {% endblock %}
 
+{% for studio in studios.distinct %}
+<h1>{{studio.name}}</h1>
+<a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add lesson</a>
+<a type="button" class="btn btn-secondary" href="{% url 'create' studio.slug %}">Add class</a>
+{% endfor %}

@@ -15,6 +15,17 @@ def send_teacher_invite(request,teacher_profile):
     uid = urlsafe_base64_encode(force_bytes(teacher_profile.pk))
     string = reverse('teacher_signup',kwargs={'uidb64':uid})
     print(string)
+    link = 'http://' + current_site.domain + string
+    send_mail(
+        'this is the subject line',
+        f' hello this click here to sign up { link }',
+        settings.DEFAULT_FROM_EMAIL, 
+        [teacher_profile.email],
+        html_message=render_to_string('access/signup_email.html', context={'url': link}),
+
+
+    )
+
 
 
 
