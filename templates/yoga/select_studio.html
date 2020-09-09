@@ -1,16 +1,18 @@
 {% extends "yoga/base.html" %}
 
 {% block content %}
-{% for studio in request.user.profile.studio_invites.all %}
 
-    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add class to {{studio.name}}</a>
+<p>Hi<br> hello</p>
+<p>Hi<br> hello</p>
+<p>Hi<br> hello</p>
+<p>Hi<br> hello3</p>
+{% for studio in studios.distinct %}
+    <h1>{{studio.name}}</h1>
+    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add lesson</a>
+    <a type="button" class="btn btn-secondary" href="{% url 'create' studio.slug %}">Add class</a>
 {% endfor %}
-{% for studio in request.user.profile.owned_studios.all %}
 
-    <a type="button" class="btn btn-secondary" href="{% url 'create_lesson' studio.id %}">Add class to {{studio.name}}</a>
-{% endfor %}
+
+
 {% endblock %}
-
-
-
 

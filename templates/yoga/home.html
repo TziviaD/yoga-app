@@ -32,7 +32,9 @@
           quaerat qui eius ipsum corrupti ipsa quidem vitae possimus nobis, ex laboriosam harum.</p>
           <div class="hero-button">
             <a href="{% url 'display' %}" class="btn btn-outline-primary btn-white">View Upcoming Lessons</a>
-            <a href="{% url 'create_studio' %}#" class="btn btn-outline-primary btn-white">Create Studio</a>
+            {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}" class="btn btn-outline-primary btn-white">signup</a>
+            {% endif %}
           </div>
         </div>
         <div class="col-md-6">
@@ -198,26 +200,7 @@
           
         </div>
         
-        <div class="card-columns">
-          <p name='random_classes'>random classes</p>
-          {% for class in klasses %}
-          <div class="card">
-            {{forloop.counter}}
-            <img src="" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title">| {{class.title}} | {{class.studio.name}}</h5>
-              <p class="card-text">{{class.oneliner}}</p>
-              <p> City: {{obj.classinfo.studio.address_set.first.city}} | Duration: {{obj.duration}} | Cost for Lesson: {{obj.classinfo.cost}} NIS  </p>
-              <a class="btn btn-primary" href="{% url 'display_class' class.slug %}">Check out this Lesson</a>
-              
-            </div>
-          </div>
-          {% endfor %}
-          
-          
-          
-        </p>
-      </div>
+      
       <div>
         {% if user.profile.is_teacher == False %}    
         <a class="btn btn-primary btn-lg" href="{% url 'create_studio' %}">Create Studio</a>
@@ -227,9 +210,7 @@
       
       
       
-      
-      <di
-      
+    
       
       
       

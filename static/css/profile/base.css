@@ -1,9 +1,10 @@
-#sidebar h3 {
+ #sidebar h3 {
   margin-top:5rem;
 }
 
-.container {
-  margin-left: 50px;
+
+.container-p {
+  margin-left: 10rem;
   width: 25%;
   padding-left: 10px;
-}
+} 

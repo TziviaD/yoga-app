@@ -2,12 +2,14 @@
 {% load teacher_check %}
 {% block content %}
 
+
+<section id="headclass">
 <h1>All about the class</h1>
 
 <a href="{% url 'single_studio' single_class.studio.slug %}" class="btn btn-primary">Studio</a>
 
 <div>
-  
+
 
 
   {% for classinfo_image in  single_class.classinfoimage_set.all %}
@@ -33,25 +35,27 @@
 {% endif %}
 
 
+</section>
 
 
-<div class="jumbotron">
-    
-    <h1 class="display-4">for loop for all the lessons on the class page </h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-    <hr class="my-4">
+
 {% for lesson in single_class.lesson_set.all %}
-    <p>time {{lesson.datetime}}</p>
-    <p>duration {{lesson.duraFtion}}</p>
+<div class="row">
+  <div class="col-sm-6">
+  <div class="card" style="width: 18rem;">
+    
+    <div class="card-body">
+      <h5 class="card-title"></h5>
+      
+    <p>Date and Time {{lesson.datetime}}</p>
+    <p>Duration of Lesson {{lesson.duration}}</p>
+    </div>
+    </div>
+   </div>
+  </div> 
+  {% endfor %}
 
-    {% endfor %}
-  </div>
-
-
-
-
-
-
+  
 
 
 

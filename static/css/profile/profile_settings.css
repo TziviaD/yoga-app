@@ -1,4 +1,19 @@
-h1 {
-    background: black;
-
+#basic-profile{
+    background: #fafafa;
+    margin-top: -16rem;
+    padding-top: 3rem;
+    padding-left: 36rem;
 }
+
+.image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.border-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

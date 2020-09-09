@@ -45,8 +45,8 @@
             {# take away create studio  #}
             {% if user.profile.owned_studios.all or user.profile.is_teacher %}  
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="{% url 'figure_out_what_studio' %}">Add Lesson</a>
-              <a class="dropdown-item" href="{% url 'create' %}">Create a Class</a>
+              <a class="dropdown-item" href="{% url 'figure_out_what_studio' %}">Add Lesson or Class</a>
+
               {% endif %}
             </ul>
           </div>

@@ -1,8 +1,11 @@
 {% extends 'profile/base.html' %}
-
-
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile/account_settings.css' %}">
+{% endblock css %}
 
 {% block content %}
+<section class="account">
 <form method="POST">
 {% csrf_token %}
 <p class="text-secondarty"> Email: {{user.email}} </p>
@@ -11,7 +14,7 @@
 <a href="{% url 'password_reset' %}">Forgot password?</a> 
 <button type="submit" name=submit class="btn btn-primary">Submit</button>
 </form>
-
+</section>
 
 
 {% endblock %}

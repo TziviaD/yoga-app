@@ -10,6 +10,7 @@ class ProfileForm(forms.ModelForm):
         fields = '__all__'
 
 
+
 class ClassInfoForm(forms.ModelForm):
     
     class Meta():
@@ -24,20 +25,20 @@ class ClassInfoForm(forms.ModelForm):
                 'class':'form-control'
             }),
             'oneliner': forms.TextInput(attrs={
-                'placeholder': 'Studio One Liner',
+                'placeholder': 'Classes One Liner',
                 'class':'form-control'
             }),
             'about': forms.Textarea(attrs={
-                'placeholder': 'Tell us all about your studio',
+                'placeholder': 'Tell us all about your class',
                 'class':'form-control'
             }),
             'cost': forms.TextInput(attrs={
                 'placeholder': 'How much does this class cost?',
                 'class':'form-control'
             }),
-            # 'studio': forms.Select(attrs={
-            #     'class':'form-control'
-            # }),
+            'studio': forms.Select(attrs={
+                'class':'form-control'
+            }),
         }
 
 
@@ -62,7 +63,7 @@ class StudioForm(forms.ModelForm):
                 'class':'form-control'
             }),
             'headings': forms.TextInput(attrs={
-                'placeholder': 'Studio One Liner',
+                'placeholder': 'Studio Slogan',
                 'class':'form-control'
             }),
             'about': forms.Textarea(attrs={

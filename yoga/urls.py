@@ -18,7 +18,7 @@ urlpatterns = [
     path('studio/edit/<slug:slug>/', views.update_studio, name='update_studio' ),
     path('studio/delete/<int:studio_image_id>/', views.delete_studio_image, name='delete_studio_image'),
 
-    path('create-class/', views.create_class, name='create'),
+    path('create-class/<slug:slug>', views.create_class, name='create'),
     path('class/<slug:name>/', views.display_class, name='display_class'),
     path('class/edit/<slug:slug>/', views.update_class, name='update_class'),
     path('class/delete/<slug:classinfo_id>/', views.delete_classinfo_image, name='delete_classinfo_image'),

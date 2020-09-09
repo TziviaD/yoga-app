@@ -16,10 +16,14 @@ from django.utils.encoding import force_text
 
 def signup(request): 
     if request.method == 'POST': 
+        print(19)
         form = UserSignupForm(request.POST)
         if form.is_valid():
+            print(22)
             user = form.save()
-            Profile.objects.create(user = user)
+            print(24)
+            Profile.objects.create(user = user, email=user.email)
+            print(26)
             login(request, user)
             return redirect('home') #shouldnt it be render? cause we want them to go to a new page its not redirecting?...
     #  return render(request, 'yoga/home.html', context={'studio':Studio()})
@@ -74,7 +78,9 @@ def teacher_signup(request,uidb64):
             return redirect('home')
     #  return render(request, 'yoga/home.html', context={'studio':Studio()})
     form = TeacherSignupForm()
-    return render(request, 'access/signup.html', {'form': form}) 
+    return render(request, 'access/teacher_signup.html', {'form': form}) 
+
+    
 
     
     

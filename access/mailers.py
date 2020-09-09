@@ -18,5 +18,3 @@ def send_teacher_invite(request,teacher_profile):
 
 
 
-
-

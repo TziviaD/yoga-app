@@ -98,25 +98,59 @@ def home(request):
 #         srandom_classes = random.randrange(classinfos)
 #         return render(request,'home',random_classes)
 
-@login_required(login_url='login') 
+
 
 # s1 = Studio.objects.get(id=1)
 # studioimages = s1.studioimage_set.all()
 # for studioimage in studioimages:
 # 	studioimage.image
+
+
+
+# def create_studio(request):
+#     if request.method == 'POST':
+#         form = StudioForm(request.POST, request.FILES)
+#         addressform = AddressForm(request.POST)
+#         if form.is_valid() and addressform.is_valid():
+#             studio = form.save(commit=False) #save as python object not db cause we didnt add all requreid info
+#             studio.owner = request.user.profile
+#             studio.save()
+#             s1 = Studio.objects.get(id=1)
+#             cover_image = s1.studioimage_set.all()
+#             studio.cover_image.save()
+#             address= addressform.save(commit=False)
+#             address.studio = studio
+#             address.save() #address not saving needs self? huh
+#             profile = request.user.profile
+#             profile.is_teacher = True
+#             profile.save()
+                    
+#             # return HttpResponse("STUDIO SAVED")
+#             # return render(request, 'yoga/home.html') #redirect not working need to figure it out
+#             # is_teacher == True
+#             return redirect('single_studio', studio.slug ) #this view and variable
+#         else:
+#             print('errors')
+#             for error, message in addressform.errors.items():
+#                 print(error, message)
+#     return render(request, 'studio/create_studio.html',context={'forms' : [StudioForm(),AddressForm()]})
+
+
+@login_required(login_url='my_login') 
 def create_studio(request):
-    print('line 15')
     if request.method == 'POST':
-        print('method get')
         form = StudioForm(request.POST, request.FILES)
         addressform = AddressForm(request.POST)
+        print("line 142")
         if form.is_valid() and addressform.is_valid():
             studio = form.save(commit=False) #save as python object not db cause we didnt add all requreid info
             studio.owner = request.user.profile
-            studio.save()
-            s1 = Studio.objects.get(id=1)
-            studioimages = s1.studioimage_set.all()
-            studio.images.save()
+            s1= studio.save()
+            print("line 147")
+            # s1 = Studio.objects.get(id=s1)
+            # cover_image = s1.studioimage_set.first()
+            # studio.cover_image.save()
+            print("line 151")
             address= addressform.save(commit=False)
             address.studio = studio
             address.save() #address not saving needs self? huh
@@ -137,8 +171,15 @@ def create_studio(request):
     
 
 
-@login_required(login_url='login') 
-def create_class(request):
+
+
+
+
+
+
+@login_required(login_url='my_login') 
+def create_class(request, slug):
+    studio = Studio.objects.get(slug = slug)
     form = ClassInfoForm(request.POST)
     # if request.user.profile.owned_studios or request.user.profile.studio_invites:
     #     studioname = form.studio.name 
@@ -148,6 +189,7 @@ def create_class(request):
             # studioname.save()
             classinfo = form.save(commit=False) 
             classinfo.slug =slugify(classinfo.title)
+            classinfo.studio = studio
             classinfo.save()
             return redirect('single_studio',classinfo.studio.slug)
         else:
@@ -161,7 +203,6 @@ def create_class(request):
         return render(request, 'studio/create_class.html',context={'form' : ClassInfoForm()})
 
 
-
 # @login_required(login_url='login') 
 # def create_class(request):
 #     if request.method == 'POST':
@@ -172,21 +213,47 @@ def create_class(request):
 #             return render(request, 'yoga/single_studio.html', {'single_studio':single_studio})
 #             # return redirect('single_studio', single_studio ) #this view and variable
 #     else:
-#         return render(request, 'studio/create_class.html',context={'classinfoform' : ClassInfoForm()})
+
+# @login_required(login_url='my_login') 
+# def create_class(request,studio_id):
+#     studio = Studio.objects.get(id=studio_id)
+#     form = ClassInfoForm(request.POST)
+#     # if request.user.profile.owned_studios or request.user.profile.studio_invites:
+#     #     studioname = form.studio.name 
+#     if request.method == 'POST':
+#         form = ClassInfoForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             # studioname.save()
+#             classinfo = form.save(commit=False) 
+#             classinfo.slug =slugify(classinfo.title)
+#             classinfo.save()
+#             return redirect('single_studio',classinfo.studio.slug)
+#         else:
+#             print('errors')
+#             for error, message in form.errors.items():
+#                 print(error, message)
+#             # return redirect('single_studio', classinfo.slug.name)
+#             # return render(request, 'yoga/single_studio.html', {'single_studio':single_studio})
+#             # return redirect('single_studio', single_studio ) #this view and variable
+#     else: #why dosent it come down to here?
+#     classinfoform = ClassInfoForm()
+#     classinfoform.fields['studio'].queryset = studio.all()
+#     return render(request, 'studio/create_class.html',context={'form' : ClassInfoForm()})# return render(request, 'studio/create_class.html',context={'classinfoform' : ClassInfoForm()})
+
 
 
 def figure_out_what_studio(request):
     owned_studios = request.user.profile.owned_studios.all()
     invited_studios = request.user.profile.studio_invites.all()
+    studios= owned_studios.union(invited_studios)
     if owned_studios.count() >0 and invited_studios.count() > 0:
-        return render(request, 'yoga/select_studio.html')
+        return render(request, 'yoga/select_studio.html', {'studios':studios})
     elif invited_studios.count() == 1:
         return redirect('create_lesson', request.user.profile.studio_invites.first().id)
     elif owned_studios.count() == 1:
         return redirect('create_lesson', request.user.profile.owned_studios.first().id)
-
     else:
-        return render(request, 'yoga/select_studio.html')
+        return render(request, 'yoga/select_studio.html', {'studios':studios})
 
 
 
@@ -207,12 +274,12 @@ def create_lesson(request, studio_id):
                 print(value)
         if form.is_valid():
             lesson = form.save(commit=False)
-            lesson.teacher =  request.user.profile
+            lesson.teacher = request.user.profile
             lesson.save()
             return redirect('display_class', lesson.classinfo.slug)
             # return redirect('single_studio,') i want it to redirect to single studio of the studio connected to
     lessonform = LessonForm()
-    lessonform.fields['classinfo'].queryset = studio.classinfo_set.all()
+    lessonform.fields['classinfo'].queryset = studio.classinfo_set.all() #explain
     return render(request, 'studio/create_lesson.html', {'lessonform': lessonform})
 
 
@@ -381,6 +448,7 @@ def display_class(request, name):
     single_class = ClassInfo.objects.get(slug =name)
     return render(request, 'yoga/display_class.html', {'single_class': single_class})
 
+
 @login_required(login_url='login')   
 def update_class(request,slug):
     classinfo = ClassInfo.objects.get(slug = slug)
@@ -427,7 +495,7 @@ def studios(request): # all studios with clickable to go into specfic one
 
 
 
-@login_required(login_url='login')
+@login_required(login_url='my_login')
 def single_studio(request, name): #a specfic studio
     single_studio = Studio.objects.get(slug = name) 
     # studio_classes = ClassInfo.objects.filter(studio=single_studio) #get only classes that are in the studio
@@ -445,7 +513,7 @@ def delete_studio_image(request, studio_image_id):
     return redirect('single_studio', studio_slug)
 
 
-@login_required(login_url='login')
+@login_required(login_url='my_login')
 def update_studio(request,slug):
     studio = Studio.objects.get(slug = slug)
     if request.method == 'POST':
